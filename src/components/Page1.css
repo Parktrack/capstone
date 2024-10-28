@@ -1,0 +1,57 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: white;
+    position: relative; /* Added to allow absolute positioning of logout button */
+}
+
+.login-header {
+    margin-bottom: 20px;
+}
+
+/* New container for user info */
+.user-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border: 3px solid #060E57; /* Border color */
+    border-radius: 15px; /* Rounded corners */
+    background-color: white; /* Background color for the container */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-bottom: 20px; /* Space below the container */
+}
+
+.user-info {
+    text-align: center;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.submit-button {
+    padding: 10px;
+    background-color: #060E57;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 150px;
+}
+
+.submit-button:hover {
+    background-color: #f0f0f0;
+    color: #060E57;
+}
+
