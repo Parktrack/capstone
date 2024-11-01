@@ -551,3 +551,37 @@ h2 {
     transform: rotate(360deg);
   }
 }
+
+.logout-button2 {
+  position: absolute; /* Position it absolutely within the header */
+  top: 20px; /* Adjusts the top position */
+  right: 20px; /* Adjusts the right position */
+  padding: 10px 20px; /* Padding for the button */
+  background-color: #060E57; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  font-size: 16px; /* Font size */
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+.logout-button2:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.no-edge-box {
+  padding: 20px; /* Adds some padding inside the box */
+  background-color: #ffffff; /* White background */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  max-width: 400px; /* Max width for the box */
+  margin: 20px auto; /* Center the box horizontally */
+  text-align: center; /* Center text within the box */
+}
+
+.parktrack-title {
+  font-size: 36px; /* Large font size for the title */
+  color: #060E57; /* Title color */
+  margin-bottom: 20px; /* Space below the title */
+}

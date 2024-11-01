@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   // Sample number of parking slots left (hardcoded for testing)
-  const [slotsLeft] = useState(10);
+  const [slotsLeft] = useState(150);
   const navigate = useNavigate();
 
   return (

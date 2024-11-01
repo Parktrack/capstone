@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient'; // Import Supabase client
-import './Page1.css'; // Ensure to import your CSS file
 import { toast } from 'react-toastify'; // Import Toast for notifications
 
 const Page1 = () => {
@@ -25,29 +24,25 @@ const Page1 = () => {
         const { data, error } = await supabase
           .from('profiles')
           .select('student_id, name, email')
-          .eq('id', user.id) // Ensure 'id' corresponds to the correct user identifier in your table
-          .limit(1) // Limit to one result
+          .eq('id', user.id)
           .single(); // Fetch a single row
 
         if (error) {
-          if (error.message.includes("multiple rows returned")) {
-            toast.error('Multiple profiles found. Please contact support.'); // Handle case of multiple rows
-            console.error('Error fetching user data:', error.message);
-          } else {
-            toast.error('Error fetching user profile data.');
-            console.error('Error fetching user data:', error.message);
-          }
+          console.error('Error fetching user data:', error.message);
+          toast.error(error.message.includes("multiple rows returned")
+            ? 'Multiple profiles found. Please contact support.'
+            : 'Error fetching user profile data.');
           return;
         }
 
         if (!data) {
-          toast.error('User profile not found.'); // Handle case where no data is returned
+          toast.error('User profile not found.');
           return;
         }
 
-        setUserInfo(data); // Set the fetched user info
+        setUserInfo(data);
       } else {
-        navigate('/login'); // Redirect to login if no user is logged in
+        navigate('/login');
       }
     };
 
@@ -55,7 +50,7 @@ const Page1 = () => {
   }, [navigate]);
 
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut(); // Sign out the user
+    const { error } = await supabase.auth.signOut();
 
     if (error) {
       console.error('Error signing out:', error.message);
@@ -63,32 +58,35 @@ const Page1 = () => {
       return;
     }
 
-    // Clear local storage (optional)
-    localStorage.removeItem('isAuthenticated'); // Ensure to clear any relevant local storage if needed
+    // Clear local storage
+    localStorage.removeItem('isAuthenticated');
 
     navigate('/login'); // Redirect to login page after logout
   };
 
   if (!userInfo) {
-    return <div>Loading...</div>; // Display loading state until user data is fetched
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="login-container">
-      <button className="logout-button" onClick={handleLogout}>
+      <button className="logout-button2" onClick={handleLogout}>
         Logout
       </button>
-      <h2 className="login-header">Student Information</h2>
-      <div className="user-info">
+    <div className="no-edge-box">
+      <h1 className="parktrack-title">PARKTRACK</h1>
+     <h2 className="login-header">Student Information</h2>
+     <div className="user-info">
         <p><strong>Student ID:</strong> {userInfo.student_id}</p>
         <p><strong>Name:</strong> {userInfo.name}</p>
         <p><strong>Email:</strong> {userInfo.email}</p>
-      </div>
-      <div className="button-group">
-        <button className="submit-button" onClick={() => navigate('/incident-report')}>
-          REPORT AN INCIDENT
-        </button>
-      </div>
+    </div>
+    <div className="button-group">
+      <button className="submit-button" onClick={() => navigate('/incident-report')}>
+      REPORT AN INCIDENT
+      </button>
+  </div>
+</div>
     </div>
   );
 };

@@ -47,7 +47,7 @@ const Admin = () => {
             <button onClick={navigateToPending}>Complaints</button>
             <button onClick={navigateToUsers}>Registered Users</button>
             <button>Button 2</button>
-            <button onClick={handleLogout} className="logout-button">Logout</button>
+            <button onClick={handleLogout} className="logout-button1">Logout</button>
           </div>
       </div>
     <div className="admin-container">
