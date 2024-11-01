@@ -569,16 +569,6 @@ h2 {
 .logout-button2:hover {
   background-color: #0056b3; /* Darker shade on hover */
 }
-/*page1/profile.js*/
-.no-edge-box {
-  padding: 20px; /* Adds some padding inside the box */
-  background-color: #ffffff; /* White background */
-  border-radius: 15px; /* Rounded corners */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  max-width: 400px; /* Max width for the box */
-  margin: 20px auto; /* Center the box horizontally */
-  text-align: center; /* Center text within the box */
-}
 /*dashboard.js*/
 .parktrack-title {
   font-size: 36px; /* Large font size for the title */
@@ -591,4 +581,220 @@ h2 {
   height: 50px; /* Adjust size as needed */
   margin-right: 8px; /* Space between icon and title */
   vertical-align: middle; /* Align icon with text */
+}
+
+/* Container for the entire page */
+.login-container {
+  background-color: #f0f4ff; /* Light background for contrast */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners for the container */
+  max-width: 800px; /* Limit the maximum width */
+  margin: 0 auto; /* Center the container */
+}
+
+/* Style for the parktrack title */
+.parktrack-title {
+  color: #060E57; /* Dark blue for the title */
+  text-align: center;
+  margin-bottom: 20px; /* Space below the title */
+}
+
+/* Style for the header */
+.login-header {
+  color: #060E57; /* Dark blue for the header */
+  margin-bottom: 10px; /* Space below the header */
+}
+
+/* Style for user info section */
+.user-info p {
+  color: #333; /* Dark gray for text */
+  margin: 5px 0; /* Space between each user info line */
+}
+
+/* Button group styling */
+.button-group {
+  display: flex; /* Use flexbox for button alignment */
+  justify-content: space-between; /* Space between buttons */
+  margin-top: 20px; /* Space above button group */
+}
+
+/* Common styles for buttons */
+.submit-button {
+  background-color: #060E57; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Round button corners */
+  padding: 10px 15px; /* Button padding */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s; /* Smooth background transition */
+}
+
+/* Button hover effect */
+.submit-button:hover {
+  background-color: #0a1d81; /* Lighter shade on hover */
+}
+
+/* Style for the complaints list */
+.complaints-list {
+  margin-top: 20px; /* Space above the complaints list */
+}
+
+/* Style for complaints container */
+.complaints-container {
+  display: flex; /* Use flexbox for horizontal layout */
+  flex-wrap: wrap; /* Allow items to wrap */
+  gap: 20px; /* Space between complaint items */
+}
+
+/* Style for each complaint item */
+.complaint-item {
+  border: 1px solid #ccc; /* Light border for each item */
+  border-radius: 5px; /* Round corners */
+  padding: 10px; /* Padding inside each item */
+  width: 200px; /* Fixed width for uniformity */
+  background-color: #e9ecef; /* Light background for complaints */
+  color: #060E57; /* Dark text color for complaints */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Style for logout button */
+.logout-button2 {
+  background-color: #ff4d4d; /* Red for logout button */
+  color: white; /* White text for visibility */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Round corners */
+  padding: 10px 15px; /* Padding */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+/* Logout button hover effect */
+.logout-button2:hover {
+  background-color: #ff1a1a; /* Darker red on hover */
+}
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4; /* Light background for contrast */
+  position: relative; /* Position relative for absolute positioning of the background */
+  overflow: hidden;
+}
+
+/* Background Image Styles */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/src/components/public/background.jpg"); /* Update this path if necessary */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.8; /* Adjust the opacity as desired */
+  filter: blur(2px); /* Adjust the blur level */
+  z-index: -1; /* Ensure the background is behind all other content */
+}
+
+/* General Styles for Page1 */
+.page1-container {
+  display: flex;
+}
+
+/* Sidebar Styles */
+.page1-sidebar {
+  width: 200px; /* Fixed width for the sidebar */
+  background-color: #060E57; /* Dark blue sidebar */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  z-index: 1; /* Ensure sidebar is above the background */
+  height: 100vh;
+}
+
+/* Sidebar Button Styles */
+.page1-sidebar-button {
+  background-color: #060E57; /* Dark blue for buttons */
+  color: white; /* White text color */
+  border: none; /* No border */
+  padding: 10px; /* Padding */
+  margin: 5px 0; /* Margin between buttons */
+  cursor: pointer; /* Pointer cursor */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.page1-sidebar-button:hover {
+  background-color: #004080; /* Lighter blue on hover */
+}
+
+/* Content Area Styles */
+.page1-content {
+  flex: 1; /* Take up the remaining space */
+  padding: 20px;
+  z-index: 1; /* Ensure content is above the background */
+}
+
+/* No Edge Box Styles */
+.page1-no-edge-box {
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px; /* Padding inside the box */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+/* Title Styles */
+.page1-parktrack-title {
+  font-size: 2em; /* Increase font size for the title */
+  color: #060E57; /* Dark blue */
+}
+
+/* Student Info Styles */
+.page1-user-info {
+  margin: 20px 0; /* Margin above and below */
+}
+
+/* Complaints Table Styles */
+.page1-complaints-table {
+  margin-top: 20px; /* Space above the table */
+}
+
+table {
+  width: 100%; /* Full width */
+  border-collapse: collapse; /* Collapse borders */
+}
+
+th, td {
+  border: 1px solid #ddd; /* Light gray border */
+  padding: 8px; /* Padding in cells */
+  text-align: left; /* Left align text */
+}
+
+th {
+  background-color: #060E57; /* Dark blue background for headers */
+  color: white; /* White text color for headers */
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+/* Logout Button Styles */
+.page1-logout-button {
+  background-color: #e74c3c; /* Red background for logout */
+  color: white; /* White text color */
+  border: none; /* No border */
+  padding: 10px; /* Padding */
+  margin-top: 20px; /* Margin on top */
+  cursor: pointer; /* Pointer cursor */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.page1-logout-button:hover {
+  background-color: #c0392b; /* Darker red on hover */
 }
