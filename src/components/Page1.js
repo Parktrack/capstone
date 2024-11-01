@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from './supabaseClient'; // Import Supabase client
+import { supabase } from './utils/supabaseClient'; // Import Supabase client
 import { toast } from 'react-toastify'; // Import Toast for notifications
 
 const Page1 = () => {

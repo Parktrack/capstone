@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from './supabaseClient'; // Import your Supabase client
+import { supabase } from './utils/supabaseClient'; // Import your Supabase client
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './IncidentReport.css'; // Ensure to import your CSS file
 

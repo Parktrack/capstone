@@ -9,7 +9,10 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h1>USTP PARKTRACK</h1>
+        <h1>
+          <img src="/favicon.ico" alt="USTP Parktrack Icon" className="favicon-icon" />
+          PARKTRACK
+        </h1>
         <div className="auth-buttons">
           <button className="auth-button" onClick={() => navigate('/login')}>Login</button>
           <button className="auth-button" onClick={() => navigate('/register')}>Register</button>

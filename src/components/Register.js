@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from './supabaseClient'; // Import Supabase client
+import { supabase } from './utils/supabaseClient'; // Import Supabase client
 import { ToastContainer, toast } from 'react-toastify'; // Import Toast
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS for Toast
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import { supabase } from '../supabaseClient' // Import Supabase client
+import { supabase } from '../utils/supabaseClient' // Import Supabase client
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import profileicon from '../public/profile-icon.png';

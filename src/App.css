@@ -551,7 +551,7 @@ h2 {
     transform: rotate(360deg);
   }
 }
-
+/*profile logout*/
 .logout-button2 {
   position: absolute; /* Position it absolutely within the header */
   top: 20px; /* Adjusts the top position */
@@ -569,7 +569,7 @@ h2 {
 .logout-button2:hover {
   background-color: #0056b3; /* Darker shade on hover */
 }
-
+/*page1/profile.js*/
 .no-edge-box {
   padding: 20px; /* Adds some padding inside the box */
   background-color: #ffffff; /* White background */
@@ -579,9 +579,16 @@ h2 {
   margin: 20px auto; /* Center the box horizontally */
   text-align: center; /* Center text within the box */
 }
-
+/*dashboard.js*/
 .parktrack-title {
   font-size: 36px; /* Large font size for the title */
   color: #060E57; /* Title color */
   margin-bottom: 20px; /* Space below the title */
+}
+/*dashboard logo for parktrack*/
+.favicon-icon {
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  margin-right: 8px; /* Space between icon and title */
+  vertical-align: middle; /* Align icon with text */
 }
