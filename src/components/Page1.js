@@ -11,7 +11,6 @@ const Page1 = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      // Get the current user
       const { data: { user }, error: userError } = await supabase.auth.getUser();
 
       if (userError) {
@@ -22,18 +21,15 @@ const Page1 = () => {
       }
 
       if (user) {
-        // Fetch user profile data from the profiles table
         const { data, error } = await supabase
           .from('profiles')
           .select('student_id, name, email')
           .eq('id', user.id)
-          .single(); // Fetch a single row
+          .single();
 
         if (error) {
           console.error('Error fetching user data:', error.message);
-          toast.error(error.message.includes("multiple rows returned")
-            ? 'Multiple profiles found. Please contact support.'
-            : 'Error fetching user profile data.');
+          toast.error('Error fetching user profile data.');
           return;
         }
 
@@ -60,10 +56,8 @@ const Page1 = () => {
       return;
     }
 
-    // Clear local storage
     localStorage.removeItem('isAuthenticated');
-
-    navigate('/login'); // Redirect to login page after logout
+    navigate('/login');
   };
 
   const fetchComplaints = async () => {
@@ -71,7 +65,7 @@ const Page1 = () => {
 
     const { data, error } = await supabase
       .from('incident_report')
-      .select('student_id, submitted_at, description') // Added description
+      .select('student_id, submitted_at, description, proof_of_incident') // Include proof_of_incident
       .eq('student_id', userInfo.student_id);
 
     if (error) {
@@ -81,22 +75,25 @@ const Page1 = () => {
     }
 
     if (data) {
-      // Parse dates into a more usable format
       const formattedComplaints = data.map(complaint => ({
         ...complaint,
-        submission_date: new Date(complaint.submitted_at).toLocaleString() // Format the date
+        submission_date: new Date(complaint.submitted_at).toLocaleString()
       }));
 
       setComplaints(formattedComplaints);
-      setShowComplaints(true); // Show complaints when fetched
+      setShowComplaints(true);
     }
   };
 
   const toggleComplaints = () => {
     if (!showComplaints) {
-      fetchComplaints(); // Fetch complaints only when showing them
+      fetchComplaints();
     }
-    setShowComplaints(!showComplaints); // Toggle visibility
+    setShowComplaints(!showComplaints);
+  };
+
+  const handleViewProof = (proofUrl) => {
+    window.open(proofUrl, '_blank'); // Open the proof image in a new tab
   };
 
   if (!userInfo) {
@@ -133,6 +130,7 @@ const Page1 = () => {
                         <th>Student ID</th>
                         <th>Date Submitted</th>
                         <th>Description</th>
+                        <th>Proof of Incident</th> {/* New column */}
                       </tr>
                     </thead>
                     <tbody>
@@ -141,13 +139,21 @@ const Page1 = () => {
                           <td>{complaint.student_id}</td>
                           <td>{complaint.submission_date}</td>
                           <td>{complaint.description}</td>
+                          <td>
+                            <button 
+                              className="view-proof-button" 
+                              onClick={() => handleViewProof(complaint.proof_of_incident)}
+                            >
+                              View Proof
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               ) : (
-                <p>No complaints found.</p> // Message if no complaints exist
+                <p>No complaints found.</p>
               )}
             </>
           ) : (

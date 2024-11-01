@@ -1,3 +1,4 @@
+// Register.js
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -14,6 +15,7 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
+    confirmPassword: '', // Add this line for confirm password
   };
 
   const validationSchema = Yup.object({
@@ -23,6 +25,9 @@ const Register = () => {
     name: Yup.string().required('Full name is required'),
     email: Yup.string().email('Invalid email format').required('Required'),
     password: Yup.string().min(6, 'Password must be at least 6 characters long').required('Password is required'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match') // Ensure passwords match
+      .required('Confirm password is required'),
   });
 
   const onSubmit = async (values) => {
@@ -38,18 +43,10 @@ const Register = () => {
         },
       });
 
-      // Log the entire response to see its structure
-      console.log('Supabase sign up response:', data, error);
-
       if (error) {
         console.error('Error signing up:', error.message);
         toast.error(`Error: ${error.message}`); // Notify user of error
         return;
-      }
-
-      // Check if user data is present in the response
-      if (!data || !data.user) {
-        throw new Error('Sign-up successful but user data is missing.');
       }
 
       // Insert user profile data into the profiles table
@@ -57,7 +54,7 @@ const Register = () => {
         .from('profiles')
         .insert([
           { 
-            id: data.user.id, // Use the user's unique ID from authentication
+            id: data.user.id,
             student_id: values.studentId,
             name: values.name,
             email: values.email,
@@ -80,46 +77,53 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <ToastContainer /> {/* ToastContainer to render the notifications */}
-      <h2>Register</h2>
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-        <Form className="register-form">
-          <div className="form-group">
-            <label className="form-label">Student ID</label>
-            <Field 
-              name="studentId" 
-              className="form-input" 
-              type="text" 
-              onKeyPress={(event) => {
-                if (!/[0-9]/.test(event.key) && event.key !== 'Backspace') {
-                  event.preventDefault();
-                }
-              }} 
-            />
-            <ErrorMessage name="studentId" component="div" className="error-message" />
-          </div>
-          <div className="form-group">
-            <label className="form-label">Full Name</label>
-            <Field name="name" className="form-input" />
-            <ErrorMessage name="name" component="div" className="error-message" />
-          </div>
-          <div className="form-group">
-            <label className="form-label">Email</label>
-            <Field type="email" name="email" className="form-input" />
-            <ErrorMessage name="email" component="div" className="error-message" />
-          </div>
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <Field type="password" name="password" className="form-input" />
-            <ErrorMessage name="password" component="div" className="error-message" />
-          </div>
-          <div className="button-group">
-            <button type="submit" className="submit-button">Register</button>
-            <button type="button" className="register-button" onClick={() => navigate('/Login')}>Back to Login</button>
-          </div>
-        </Form>
-      </Formik>
+    <div className="register-page">
+      <ToastContainer />
+      <div className="register-container">
+        <h2>Register</h2>
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+          <Form className="register-form">
+            <div className="form-group">
+              <label className="form-label">Student ID</label>
+              <Field 
+                name="studentId" 
+                className="form-input" 
+                type="text" 
+                onKeyPress={(event) => {
+                  if (!/[0-9]/.test(event.key) && event.key !== 'Backspace') {
+                    event.preventDefault();
+                  }
+                }} 
+              />
+              <ErrorMessage name="studentId" component="div" className="error-message" />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Full Name</label>
+              <Field name="name" className="form-input" />
+              <ErrorMessage name="name" component="div" className="error-message" />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Email</label>
+              <Field type="email" name="email" className="form-input" />
+              <ErrorMessage name="email" component="div" className="error-message" />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <Field type="password" name="password" className="form-input" />
+              <ErrorMessage name="password" component="div" className="error-message" />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Confirm Password</label>
+              <Field type="password" name="confirmPassword" className="form-input" /> {/* New field */}
+              <ErrorMessage name="confirmPassword" component="div" className="error-message" />
+            </div>
+            <div className="button-group">
+              <button type="submit" className="submit-button">Register</button>
+              <button type="button" className="register-button" onClick={() => navigate('/Login')}>Back to Login</button>
+            </div>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 };

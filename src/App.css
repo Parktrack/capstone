@@ -377,30 +377,87 @@ h1 {
 }
 
 /* Login/Register */
-/* Container Styles */
-.register-container, .login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: white;
-  overflow: hidden;
+/* Login.css */
+.login-page {
+  display: flex; /* Use flexbox to center the container */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full viewport height */
+  background-color: #f0f0f0; /* Light gray background for login page only */
 }
 
-/* Form Styles */
-.register-form, .login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.login-container {
   width: 100%;
   max-width: 400px;
   padding: 20px;
-  border: 3px solid #060E57;
-  border-radius: 15px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+  border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+/* Register.css */
+.register-page {
+  display: flex; /* Use flexbox to center the container */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full viewport height */
+  background-color: #f0f0f0; /* Light gray background for registration page only */
+}
+
+.register-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875em;
+  margin-top: 5px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-button, .register-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.register-button {
+  background-color: #ccc;
+  color: black;
+}
+
+/* Container Styles */
 
 /* Form Group */
 .form-group {
@@ -797,4 +854,124 @@ tr:nth-child(even) {
 
 .page1-logout-button:hover {
   background-color: #c0392b; /* Darker red on hover */
+}
+
+
+
+/* Sidebar and Page Layout */
+.page-container {
+  display: flex;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #060E57; /* Dark blue background */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.content {
+  margin-left: 200px; /* Space for sidebar */
+  padding: 20px;
+  width: 100%;
+}
+
+/*incident report */
+
+.no-edge-box {
+  position: relative;
+  padding: 20px;
+}
+
+.parktrack-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #060E57;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  z-index: 1;
+}
+
+.back-button:hover {
+  background-color: #0a1d81;
+}
+
+.incident-report-container {
+  background-color: white; /* White background */
+  padding: 20px;
+  border-radius: 8px; /* Rounded corners */
+  border: 2px solid #ccc; /* Outline effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+  max-width: 500px; /* Set a max width for the container */
+  margin: 40px auto; /* Center the container */
+}
+
+.section-header {
+  text-align: center; /* Center the section header */
+  margin-bottom: 20px;
+}
+
+.incident-form {
+  display: flex;
+  flex-direction: column; /* Stack the inputs vertically */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center; /* Center the submit button */
+}
+
+.submit-button {
+  padding: 10px 20px;
+  background-color: #060E57;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0a1d81;
+}
+
+.message {
+  color: red; /* Display error messages in red */
+  text-align: center; /* Center error messages */
+  margin-top: 15px;
 }

@@ -52,9 +52,11 @@ const Login = () => {
     }
   };
 
-  return (
+// Login.js
+return (
+  <div className="login-page"> {/* Add this wrapper class */}
     <div className="login-container">
-      <ToastContainer /> {/* ToastContainer to render the notifications */}
+      <ToastContainer />
       <div className="header">
         <button className="back-button" onClick={() => navigate('/')}>Back to Dashboard</button>
       </div>
@@ -64,7 +66,7 @@ const Login = () => {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {({ isSubmitting }) => ( // Access isSubmitting to disable button
+        {({ isSubmitting }) => (
           <Form className="login-form">
             <div className="form-group">
               <label className="form-label">Email</label>
@@ -88,7 +90,9 @@ const Login = () => {
         )}
       </Formik>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default Login;
