@@ -11,16 +11,10 @@ const Admin = () => {
   const [slotsLeft] = useState(10);
 
   // Logout function
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error('Logout error:', error.message);
-    } else {
-      // Redirect to login page or perform other actions after logout
-      window.location.href = '/'; // Redirect to the login page
-    }
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated'); // Clear authentication state
+    navigate('/login'); // Redirect to login
   };
-
   // Function to navigate to the Users page
   const navigateToUsers = () => {
     navigate('/users'); // Navigate to the Users page

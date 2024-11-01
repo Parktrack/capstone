@@ -19,7 +19,7 @@ const Login = () => {
     password: Yup.string().required('Password is required'),
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values, { setSubmitting }) => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: values.email,
@@ -31,6 +31,9 @@ const Login = () => {
         toast.error(`Login failed: ${error.message}`); // Notify user of error
         return;
       }
+
+      // Save authentication state in local storage
+      localStorage.setItem('isAuthenticated', 'true'); // Set authentication flag
 
       // Check if the logged-in user is the admin
       const adminEmail = 'admin@gmail.com'; // Replace with your actual admin email
@@ -44,6 +47,8 @@ const Login = () => {
     } catch (error) {
       console.error('Error during login:', error.message);
       toast.error(`Error: ${error.message}`); // Notify user of error
+    } finally {
+      setSubmitting(false); // Always set submitting to false when done
     }
   };
 
@@ -51,26 +56,36 @@ const Login = () => {
     <div className="login-container">
       <ToastContainer /> {/* ToastContainer to render the notifications */}
       <div className="header">
-        <button className="back-button" onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
+        <button className="back-button" onClick={() => navigate('/')}>Back to Dashboard</button>
       </div>
       <h2 className="login-header">Login</h2>
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-        <Form className="login-form">
-          <div className="form-group">
-            <label className="form-label">Email</label>
-            <Field type="email" name="email" className="form-input" />
-            <ErrorMessage name="email" component="div" className="error-message" />
-          </div>
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <Field type="password" name="password" className="form-input" />
-            <ErrorMessage name="password" component="div" className="error-message" />
-          </div>
-          <div className="button-group">
-            <button type="submit" className="submit-button">Login</button>
-            <button type="button" className="register-button" onClick={() => navigate('/register')}>Register</button>
-          </div>
-        </Form>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        {({ isSubmitting }) => ( // Access isSubmitting to disable button
+          <Form className="login-form">
+            <div className="form-group">
+              <label className="form-label">Email</label>
+              <Field type="email" name="email" className="form-input" />
+              <ErrorMessage name="email" component="div" className="error-message" />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <Field type="password" name="password" className="form-input" />
+              <ErrorMessage name="password" component="div" className="error-message" />
+            </div>
+            <div className="button-group">
+              <button type="submit" className="submit-button" disabled={isSubmitting}>
+                Login
+              </button>
+              <button type="button" className="register-button" onClick={() => navigate('/register')}>
+                Register
+              </button>
+            </div>
+          </Form>
+        )}
       </Formik>
     </div>
   );

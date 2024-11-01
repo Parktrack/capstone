@@ -63,6 +63,9 @@ const Page1 = () => {
       return;
     }
 
+    // Clear local storage (optional)
+    localStorage.removeItem('isAuthenticated'); // Ensure to clear any relevant local storage if needed
+
     navigate('/login'); // Redirect to login page after logout
   };
 
