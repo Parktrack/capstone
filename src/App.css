@@ -1077,3 +1077,7 @@ tr:nth-child(even) {
   margin-top: 10px;
   margin-right: 10px;
 }
+.proof-image {
+  max-width: 100%;
+  height: auto;
+}

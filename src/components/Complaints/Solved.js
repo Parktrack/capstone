@@ -8,9 +8,6 @@ import profileicon from '../public/profile-icon.png';
 const Solved = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedStudentId, setSelectedStudentId] = useState(null);
-  const [remarksInput, setRemarksInput] = useState('');
-  const [showSendModal, setShowSendModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [viewRemarks, setViewRemarks] = useState('');
   const navigate = useNavigate();
@@ -20,8 +17,8 @@ const Solved = () => {
       const { data, error } = await supabase
         .from('incident_report')
         .select('student_id, description, submitted_at, remarks')
-        .not('remarks', 'is', null)
-        .eq('progress', 0);
+        .eq('progress', 2) // Fetch reports with progress = 2
+        .not('remarks', 'is', null); // Ensure there are remarks
 
       if (error) {
         console.error('Error fetching reports:', error.message);
@@ -86,9 +83,8 @@ const Solved = () => {
         <div className='header-container'>
           <div className='menu-icon'><FontAwesomeIcon icon={faBars} /></div>
         </div>
-        <div className='report-title'>Dashboard</div>
+        <div className='report-title'>Solved Reports</div>
         <div className="report-container">
-          <div className='table-title-solved'>Solved</div>
           {loading ? (
             <p>Loading reports...</p>
           ) : reports.length > 0 ? (

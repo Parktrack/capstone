@@ -1,88 +1,122 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import { supabase } from './utils/supabaseClient'; // Import Supabase client
+import { useNavigate } from 'react-router-dom';
+import { supabase } from './utils/supabaseClient';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faBarsProgress, faCheckDouble, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faBarsProgress, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 import profileicon from './public/profile-icon.png';
 
 const Admin = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
-  const [isSidebarVisible, setSidebarVisible] = useState(true);
+  const navigate = useNavigate();
   const [slotsLeft] = useState(10);
+  const [pendingCount, setPendingCount] = useState(0);
+  const [onProgressCount, setOnProgressCount] = useState(0);
+  const [solvedCount, setSolvedCount] = useState(0);
 
-  // Logout function
+  useEffect(() => {
+    const fetchReportCounts = async () => {
+      const { data: pendingReports, error: pendingError } = await supabase
+        .from('incident_report')
+        .select('*')
+        .eq('progress', 0) // Pending reports
+        .not('remarks', 'is', null); // Must have no remarks
+
+      const { data: onProgressReports, error: onProgressError } = await supabase
+        .from('incident_report')
+        .select('*')
+        .eq('progress', 1) // On progress reports
+        .not('remarks', 'is', null); // Must have remarks
+
+      const { data: solvedReports, error: solvedError } = await supabase
+        .from('incident_report')
+        .select('*')
+        .eq('progress', 2) // Solved reports
+        .not('remarks', 'is', null); // Must have remarks
+
+      if (!pendingError) {
+        setPendingCount(pendingReports.length);
+      }
+      if (!onProgressError) {
+        setOnProgressCount(onProgressReports.length);
+      }
+      if (!solvedError) {
+        setSolvedCount(solvedReports.length);
+      }
+    };
+
+    fetchReportCounts();
+  }, []);
+
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated'); // Clear authentication state
-    navigate('/login'); // Redirect to login
+    localStorage.removeItem('isAuthenticated');
+    navigate('/login');
   };
-  // Function to navigate to the Users page
+
   const navigateToUsers = () => {
-    navigate('/users'); // Navigate to the Users page
+    navigate('/users');
   };
 
   const navigateToPending = () => {
-    navigate('/Pending'); // Navigate to the Users page
+    navigate('/Pending');
   };
 
   const navigateToOnProgress = () => {
-    navigate('/OnProgress'); // Navigate to the Users page
+    navigate('/OnProgress');
   };
 
   const navigateToSolved = () => {
-    navigate('/Solved'); // Navigate to the Users page
+    navigate('/Solved');
   };
-
 
   return (
     <div className='container'>
       <div className='side-bar'>
-          <div className='Logo'>PARKTRACK</div>
-          <div className='Profile'>
-            <img src={profileicon} alt="profile-icon"></img>
-            <div>ADMIN</div>
-            <div>Settings</div>
-          </div>
-          <div className='Dashboard'>
-            <button>Dashboard</button>
-            <button onClick={navigateToPending}>Complaints</button>
-            <button onClick={navigateToUsers}>Registered Users</button>
-            <button>Button 2</button>
-            <button onClick={handleLogout} className="logout-button1">Logout</button>
-          </div>
-      </div>
-    <div className="admin-container">
-      <div className='header-container'>
-     <div className='menu-icon'> <FontAwesomeIcon icon={faBars} /></div>
-      </div>
-      <div className='report-title'>Dashboard</div>
-      <div className="report-container">
-
-        <div className="dashboard-content">
-        <div className="slots-container">
-          <p className="slots-text">SLOTS LEFT</p>
-          <h2 className="slots-number">{slotsLeft}</h2>
+        <div className='Profile'>
+          <img src={profileicon} alt="profile-icon" />
+          <div>ADMIN</div>
+        </div>
+        <div className='Dashboard'>
+          <button>Dashboard</button>
+          <button onClick={navigateToPending}>Complaints</button>
+          <button onClick={navigateToUsers}>Registered Users</button>
+          <button>Button 2</button>
+          <button onClick={handleLogout} className="logout-button1">Logout</button>
         </div>
       </div>
+      <div className="admin-container">
+        <div className='header-container'></div>
+        <div className='report-title'>Dashboard</div>
+        <div className="report-container">
 
-        <div className='progress-container'>
-          <div className='pending' onClick={navigateToPending}>
-            <section className='pending-icon'>
-              <FontAwesomeIcon icon={faSpinner}/>
-            </section> 
-              <section>0 </section>
+          <div className="dashboard-content">
+            <div className="slots-container">
+              <p className="slots-text">SLOTS LEFT</p>
+              <h2 className="slots-number">{slotsLeft}</h2>
+            </div>
+          </div>
+
+          <div className='progress-container'>
+            <div className='pending' onClick={navigateToPending}>
+              <section className='pending-icon'>
+                <FontAwesomeIcon icon={faSpinner} />
+              </section>
+              <section>{pendingCount}</section>
               <section>Pending</section>
             </div>
-          <div className='onprogress' onClick={navigateToOnProgress}>
-            <section className='onprogress-icon'>  <FontAwesomeIcon icon={faBarsProgress} /> </section>
-            <section>0 </section>
+            <div className='onprogress' onClick={navigateToOnProgress}>
+              <section className='onprogress-icon'>
+                <FontAwesomeIcon icon={faBarsProgress} />
+              </section>
+              <section>{onProgressCount}</section>
               <section>On Progress</section>
             </div>
-          <div className='solved' onClick={navigateToSolved}>
-            <section className='solved-icon'> <FontAwesomeIcon icon={faCheckDouble} /></section>
-           <section>0 </section>
-           <section>Solved</section>
+            <div className='solved' onClick={navigateToSolved}>
+              <section className='solved-icon'>
+                <FontAwesomeIcon icon={faCheckDouble} />
+              </section>
+              <section>{solvedCount}</section>
+              <section>Solved</section>
             </div>
-        </div>
+          </div>
         </div>
       </div>
     </div>

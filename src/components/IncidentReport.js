@@ -17,6 +17,26 @@ const IncidentReport = () => {
       return;
     }
 
+    // Check how many reports the student has submitted today
+    const today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+    const { data: existingReports, error: fetchError } = await supabase
+      .from('incident_report')
+      .select('student_id')
+      .eq('student_id', studentId)
+      .gte('submitted_at', `${today}T00:00:00`)
+      .lt('submitted_at', `${today}T23:59:59`);
+
+    if (fetchError) {
+      console.error('Error fetching existing reports:', fetchError.message);
+      alert('An error occurred while checking your report limit. Please try again.');
+      return;
+    }
+
+    if (existingReports.length >= 3) {
+      setMessage('You have reached the limit of 3 reports for today.');
+      return;
+    }
+
     const filePath = `private/${studentId}/${photo.name}`;
     const { data: uploadData, error: uploadError } = await supabase
       .storage

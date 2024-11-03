@@ -51,18 +51,20 @@ const OnProgress = () => {
   const markAsSolved = async (studentId) => {
     const { error } = await supabase
       .from('incident_report')
-      .update({ progress: 1 }) // Update the status to 'Solved'
+      .update({ progress: 2 }) // Update the status to 'Solved' (progress = 2)
       .eq('student_id', studentId);
-
+  
     if (error) {
       console.error('Error updating report status:', error.message);
     } else {
       // Optionally, you can remove it from the state
       setReports((prevReports) => prevReports.filter(report => report.student_id !== studentId));
       alert('Report marked as solved!');
+      // Optionally, navigate to the Solved page or refresh reports
+      navigate('/Solved'); // Redirect to Solved page after marking as solved
     }
   };
-
+  
   const markAsUnsolved = async (studentId) => {
     const { error } = await supabase
       .from('incident_report')

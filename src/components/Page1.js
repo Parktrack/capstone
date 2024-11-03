@@ -10,6 +10,8 @@ const Page1 = () => {
   const [showComplaints, setShowComplaints] = useState(false);
   const [selectedRemarks, setSelectedRemarks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [proofUrl, setProofUrl] = useState(''); // State for proof URL
+  const [isProofModalOpen, setIsProofModalOpen] = useState(false); // State for proof modal
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -94,8 +96,14 @@ const Page1 = () => {
     setShowComplaints(!showComplaints);
   };
 
-  const handleViewProof = (proofUrl) => {
-    window.open(proofUrl, '_blank'); // Open the proof image in a new tab
+  const handleShowProof = (proofUrl) => {
+    setProofUrl(proofUrl);
+    setIsProofModalOpen(true); // Open proof modal
+  };
+
+  const closeProofModal = () => {
+    setIsProofModalOpen(false);
+    setProofUrl('');
   };
 
   const handleShowRemarks = (remarks) => {
@@ -154,7 +162,7 @@ const Page1 = () => {
                           <td>
                             <button 
                               className="view-proof-button" 
-                              onClick={() => handleViewProof(complaint.proof_of_incident)}
+                              onClick={() => handleShowProof(complaint.proof_of_incident)}
                             >
                               View Proof
                             </button>
@@ -188,6 +196,17 @@ const Page1 = () => {
           )}
         </div>
       </div>
+
+      {/* Modal for Proof of Incident */}
+      {isProofModalOpen && (
+        <div className="modal-overlay" onClick={closeProofModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>Proof of Incident</h3>
+            <img src={proofUrl} alt="Proof of incident" className="proof-image" />
+            <button onClick={closeProofModal}>Close</button>
+          </div>
+        </div>
+      )}
 
       {/* Modal for Admin's Remarks */}
       {isModalOpen && (
