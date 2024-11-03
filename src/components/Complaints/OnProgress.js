@@ -85,36 +85,33 @@ const OnProgress = () => {
   };
 
   return (
-    <div className='container'>
-      <div className='side-bar'>
-        <div className='Logo'>PARK NIGGA</div>
-        <div className='Profile'>
+    <div className='admin1-container'>
+      <div className='admin1-sidebar'>
+        <div className='admin1-profile'>
           <img src={profileicon} alt="profile-icon" />
           <div>ADMIN</div>
-          <div>Settings</div>
         </div>
-        <div className='Dashboard'>
-          <button onClick={() => navigate('/Admin')}>Dashboard</button>
-          <button>Complaints</button>
-          <div className='complaints'>
-            <button onClick={() => navigate('/Pending')}>Pending</button>
-            <button onClick={() => navigate('/OnProgress')}>On Progress</button>
-            <button onClick={() => navigate('/Solved')}>Solved</button>
+        <div className='admin1-dashboard'>
+          <button onClick={() => navigate('/Admin')} className="admin1-sidebar-button">Dashboard</button>
+          <button className="admin1-sidebar-button">Complaints</button>
+          <div className='admin1-complaints'>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/Pending')}>Pending</button>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/OnProgress')}>On Progress</button>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/Solved')}>Solved</button>
           </div>
-          <button onClick={() => navigate('/users')}>Registered Users</button>
-          <button onClick={handleLogout} className="logout-button">Logout</button>
+          <button className="admin1-sidebar-button" onClick={() => navigate('/users')}>Registered Users</button>
+          <button onClick={handleLogout} className="admin1-logout-button">Logout</button>
         </div>
       </div>
-      <div className="admin-container">
-        <div className='header-container'>
-          <div className='menu-icon'><FontAwesomeIcon icon={faBars} /></div>
+      <div className="admin1-content">
+        <div className='admin1-header-container'>
         </div>
-        <div className='report-title'>On Progress</div>
-        <div className="report-container">
+        <div className='admin1-table-title'>On Progress</div>
+        <div className="admin1-report-container">
           {loading ? (
             <p>Loading reports...</p>
           ) : reports.length > 0 ? (
-            <table className="users-table">
+            <table className="admin1-users-table">
               <thead>
                 <tr>
                   <th>Ticket #</th>
@@ -133,34 +130,34 @@ const OnProgress = () => {
                     <td>{new Date(report.submitted_at).toLocaleDateString()}</td>
                     <td>{report.description}</td>
                     <td>
-                      <button onClick={() => openViewModal(report.remarks)}>View Remarks</button>
+                      <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">View Remarks</button>
                     </td>
                     <td>
-                      <button onClick={() => markAsSolved(report.student_id)}>Solved</button>
-                      <button onClick={() => markAsUnsolved(report.student_id)}>Unsolved</button>
+                      <button onClick={() => markAsSolved(report.student_id)} className="admin1-solved-button">Solved</button>
+                      <button onClick={() => markAsUnsolved(report.student_id)} className="admin1-unsolved-button">Unsolved</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <p>No reports found.</p>
+            <p>No Reports Currently On Progress..</p>
           )}
         </div>
       </div>
-
+  
       {/* View Remarks Modal */}
       {showViewModal && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="admin1-modal">
+          <div className="admin1-modal-content">
             <h2>View Remarks</h2>
             <p>{viewRemarks}</p>
-            <button onClick={closeViewModal}>Close</button>
+            <button onClick={closeViewModal} className="admin1-close-button">Close</button>
           </div>
         </div>
       )}
     </div>
-  );
+  );  
 };
 
 export default OnProgress;

@@ -59,36 +59,34 @@ const Solved = () => {
   };
 
   return (
-    <div className='container'>
-      <div className='side-bar'>
-        <div className='Logo'>PARK NIGGA</div>
-        <div className='Profile'>
+    <div className='admin1-container'>
+      <div className='admin1-sidebar'>
+        <div className='admin1-profile'>
           <img src={profileicon} alt="profile-icon" />
           <div>ADMIN</div>
-          <div>Settings</div>
         </div>
-        <div className='Dashboard'>
-          <button onClick={navigateToDashboard}>Dashboard</button>
-          <button>Complaints</button>
-          <div className='complaints'>
-            <button onClick={() => navigate('/Pending')}>Pending</button>
-            <button onClick={() => navigate('/OnProgress')}>On Progress</button>
-            <button onClick={() => navigate('/Solved')}>Solved</button>
+        <div className='admin1-dashboard'>
+          <button onClick={navigateToDashboard} className="admin1-sidebar-button">Dashboard</button>
+          <button className="admin1-sidebar-button">Complaints</button>
+          <div className='admin1-complaints'>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/Pending')}>Pending</button>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/OnProgress')}>On Progress</button>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/Solved')}>Solved</button>
           </div>
-          <button onClick={navigateToUsers}>Registered Users</button>
-          <button onClick={handleLogout} className="logout-button">Logout</button>
+          <button onClick={navigateToUsers} className="admin1-sidebar-button">Registered Users</button>
+          <button onClick={handleLogout} className="admin1-logout-button">Logout</button>
         </div>
       </div>
-      <div className="admin-container">
-        <div className='header-container'>
-          <div className='menu-icon'><FontAwesomeIcon icon={faBars} /></div>
+      
+      <div className="admin1-content">
+        <div className='admin1-header-container'>
         </div>
-        <div className='report-title'>Solved Reports</div>
-        <div className="report-container">
+        <div className='admin1-table-title'>Solved Reports</div>
+        <div className="admin1-report-container">
           {loading ? (
             <p>Loading reports...</p>
           ) : reports.length > 0 ? (
-            <table className="users-table">
+            <table className="admin1-users-table">
               <thead>
                 <tr>
                   <th>Ticket #</th>
@@ -106,7 +104,7 @@ const Solved = () => {
                     <td>{new Date(report.submitted_at).toLocaleDateString()}</td>
                     <td>{report.description}</td>
                     <td>
-                      <button onClick={() => openViewModal(report.remarks)}>View Remarks</button>
+                      <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">View Remarks</button>
                     </td>
                   </tr>
                 ))}
@@ -117,14 +115,14 @@ const Solved = () => {
           )}
         </div>
       </div>
-
+  
       {/* View Remarks Modal */}
       {showViewModal && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="admin1-modal">
+          <div className="admin1-modal-content">
             <h2>View Remarks</h2>
             <p>{viewRemarks}</p>
-            <button onClick={closeViewModal}>Close</button>
+            <button onClick={closeViewModal} className="admin1-close-button">Close</button>
           </div>
         </div>
       )}
