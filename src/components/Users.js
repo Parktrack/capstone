@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from './utils/supabaseClient'; // Import Supabase client
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { supabase } from './utils/supabaseClient';
+import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
-  const [users, setUsers] = useState([]); // State for storing users data
-  const [loading, setLoading] = useState(true); // State for managing loading
-  const navigate = useNavigate(); // Hook for navigation
+  const [users, setUsers] = useState([]); 
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
-    console.log('Running fetchUsers'); // Log to confirm useEffect is triggered
+    console.log('Running fetchUsers'); 
   
     const fetchUsers = async () => {
       const { data, error } = await supabase
         .from('profiles')
         .select('student_id, created_at');
       
-      console.log('Data:', data);  // Log data to see if it's undefined or null
-      console.log('Error:', error); // Log any potential error
+      console.log('Data:', data);  
+      console.log('Error:', error); 
   
       if (error) {
         console.error('Error fetching users:', error.message);
@@ -36,7 +36,7 @@ const Users = () => {
         Return
       </button>
 
-      {/* Show loading message if data is still being fetched */}
+      {                        }
       {loading ? (
         <p>Loading users...</p>
       ) : users.length > 0 ? (
