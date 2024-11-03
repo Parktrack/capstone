@@ -20,7 +20,8 @@ const Solved = () => {
       const { data, error } = await supabase
         .from('incident_report')
         .select('student_id, description, submitted_at, remarks')
-        .not('remarks', 'is', null);
+        .not('remarks', 'is', null)
+        .eq('progress', 0);
 
       if (error) {
         console.error('Error fetching reports:', error.message);
