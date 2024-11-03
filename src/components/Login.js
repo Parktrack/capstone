@@ -54,7 +54,7 @@ const Login = () => {
   return (
     <div className="login1-page">
       <ToastContainer />
-      <h1 className="login1-title">USTP PARKTRACK</h1> {/* Added title */}
+      <h1 className="login1-title">PARKTRACK</h1> {/* Added title */}
       <div className="login1-container">
         <button className="login1-back-button" onClick={() => navigate('/')}>
           Back to Dashboard

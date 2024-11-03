@@ -17,8 +17,7 @@ const IncidentReport = () => {
       return;
     }
 
-    // Check how many reports the student has submitted today
-    const today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
     const { data: existingReports, error: fetchError } = await supabase
       .from('incident_report')
       .select('student_id')
@@ -74,14 +73,13 @@ const IncidentReport = () => {
   };
 
   return (
-    <div className="no-edge-box">
-      <div className="incident-report-container">
-        <h1 className="parktrack-title">PARKTRACK</h1>
+    <div className="report1-page">
+      <h1 className="parktrack-title1">PARKTRACK</h1>
+      <div className="report1-container">
         <h2 className="section-header">Incident Report</h2>
-        <button className="back-button" onClick={() => navigate('/profile')}>Back to Profile</button>
-        <form onSubmit={handleSubmit} className="incident-form">
-          <div className="form-group">
-            <label className="form-label">Student ID</label>
+        <form onSubmit={handleSubmit} className="report1-form">
+          <div className="report1-form-group">
+            <label className="report1-form-label">Student ID</label>
             <input
               type="text"
               value={studentId}
@@ -91,34 +89,35 @@ const IncidentReport = () => {
               }}
               maxLength="10"
               required
-              className="form-input"
+              className="report1-form-input"
               placeholder="Enter up to 10 digits only"
             />
           </div>
-          <div className="form-group">
-            <label className="form-label">Description</label>
+          <div className="report1-form-group">
+            <label className="report1-form-label">Description</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
-              className="form-input"
-              placeholder='please provide a clear description on what happened.'
+              className="report1-form-input"
+              placeholder='Please provide a clear description of what happened.'
             />
           </div>
-          <div className="form-group">
-            <label className="form-label">Upload Photo</label>
+          <div className="report1-form-group">
+            <label className="report1-form-label">Upload Photo</label>
             <input
               type="file"
               onChange={(e) => setPhoto(e.target.files[0])}
               required
-              className="form-input"
+              className="report1-form-input"
             />
           </div>
-          <div className="button-group">
-            <button type="submit" className="submit-button">Submit</button>
+          <div className="report1-button-group">
+            <button type="submit" className="report1-submit-button">Submit</button>
+            <button className="report1-back-button" onClick={() => navigate('/profile')}>Back to Profile</button>
           </div>
         </form>
-        {message && <p className="message">{message}</p>}
+        {message && <p className="report1-message">{message}</p>}
       </div>
     </div>
   );

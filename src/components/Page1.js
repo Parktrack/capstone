@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './utils/supabaseClient';
 import { toast } from 'react-toastify';
+import favicon from './public/profile-icon.png'; // Adjust the path as necessary
 
 const Page1 = () => {
   const navigate = useNavigate();
@@ -122,6 +123,8 @@ const Page1 = () => {
   return (
     <div className="page1-container">
       <div className="page1-sidebar">
+        {/* Add the logo above the Profile button */}
+        <img src={favicon} alt="Logo" className="sidebar-logo" />
         <button className="page1-sidebar-button" onClick={() => setShowComplaints(false)}>
           Profile
         </button>
@@ -131,7 +134,9 @@ const Page1 = () => {
         <button className="page1-sidebar-button" onClick={() => navigate('/incident-report')}>
           Report Incident
         </button>
-        <button className="page1-logout-button" onClick={handleLogout}>
+        
+        {/* Add the Logout button at the bottom */}
+        <button className="admin1-logout-button" onClick={handleLogout}>
           Logout
         </button>
       </div>

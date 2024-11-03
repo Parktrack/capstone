@@ -77,7 +77,7 @@ const Register = () => {
 
   return (
     <div className="register1-page">
-      <h1 className="parktrack-title">USTP PARKTRACK</h1>
+      <h1 className="parktrack-title">WELCOME TO PARKTRACK</h1>
       <ToastContainer />
       <div className="register1-container">
         <h2 className="register1-header">Register</h2>

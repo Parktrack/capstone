@@ -323,6 +323,37 @@ h1 {
 .admin1-send-button {
   text-align: center; /* Center the buttons in the cell */
 }
+/*admin1 table*/
+.admin1-users-table {
+  width: 100%; /* Full width of the container */
+  border-collapse: collapse; /* Remove space between table cells */
+  margin-top: 20px; /* Space above the table */
+  font-family: Arial, sans-serif; /* Font style for the table */
+  background-color: #f9f9f9; /* Light background color */
+}
+
+.admin1-users-table th,
+.admin1-users-table td {
+  padding: 12px 15px; /* Padding inside cells */
+  text-align: left; /* Align text to the left */
+  border-bottom: 1px solid #ddd; /* Light border between rows */
+}
+
+.admin1-users-table th {
+  background-color: #060E57; /* Dark background for header */
+  color: white; /* White text for header */
+}
+
+.admin1-users-table tr:hover {
+  background-color: rgba(6, 14, 87, 0.1); /* Light hover effect for rows */
+}
+
+.admin1-table-title {
+  font-size: 24px; /* Larger title font size */
+  font-weight: bold; /* Bold title */
+  margin-bottom: 10px; /* Space below the title */
+  color: #060E57; /* Color matching your theme */
+}
 
 .admin1-view-proof-button,
 .admin1-view-remarks-button,
@@ -1256,27 +1287,62 @@ tr:nth-child(even) {
   display: flex;
 }
 
+
 /* Sidebar Styles */
 .admin1-sidebar {
-  width: 200px;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #ffffff;
   background-color: #060E57;
-  color: white;
+  width: 250px;
+  height: 100vh; /* Full viewport height */
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  z-index: 1;
-  height: 100vh;
+  gap: 15px;
+  box-sizing: border-box; /* Ensures padding doesn't expand width */
+  position: fixed; /* Keeps sidebar in place if content scrolls */
+  top: 0;
+  left: 0;
+}
+
+.admin1-content {
+  margin-left: 250px; /* Offset content to account for sidebar width */
+  padding: 20px;
+}
+
+.admin1-sidebar-button {
+  font-size: 18px; /* Larger font size */
+  font-weight: 500; /* Semi-bold for emphasis */
+  color: #ffffff; /* White color for buttons */
+  background-color: transparent; /* Transparent background */
+  padding: 12px 20px; /* Padding inside button */
+  border: none; /* Remove border */
+  border-radius: 8px; /* Rounded corners */
+  text-align: left; /* Align text to the left */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
+}
+
+.admin1-sidebar-button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Light hover effect */
+  color: #f1f1f1; /* Slightly lighter text on hover */
 }
 
 .admin1-profile {
-  text-align: center;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between profile image and text */
+  font-size: 20px; /* Slightly larger font for profile name */
+  font-weight: bold; /* Bold for emphasis */
+  color: #f1f1f1; /* Off-white color */
 }
 
 .admin1-profile img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+  width: 50px; /* Larger profile image */
+  height: 50px; /* Match height to width */
+  border-radius: 50%; /* Round profile image */
+  border: 2px solid #f1f1f1; /* Border around profile image */
 }
 
 .admin1-dashboard {
@@ -1334,6 +1400,27 @@ tr:nth-child(even) {
   font-size: 2em;
   color: #060E57;
   margin-bottom: 20px;
+}
+
+.admin1-complaints {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px; /* Space above the complaint buttons */
+  margin-left: 10px; /* Indent the buttons for visual separation */
+}
+
+.admin1-complaints button {
+  background: transparent;
+  border: none;
+  color: #ebebeb; /* Match your theme color */
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  margin-bottom: 10px; /* Space between buttons */
+}
+
+.admin1-complaints button:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Light hover effect */
 }
 
 /* Slot Container */
@@ -1396,4 +1483,94 @@ tr:nth-child(even) {
 .admin1-table-title {
   color: whitesmoke;
   font-size: x-large;
+}
+
+/*INCIDENT REPORT STYLES*/
+.report1-page {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("/src/components/public/background.jpg"); /* Set the same background image */
+  background-size: cover; /* Make the background cover the entire page */
+  background-position: center; /* Center the background image */
+}
+
+.report1-container {
+  padding: 20px; /* Padding inside the container */
+  background-color: #ffffff; /* White background for the container */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Full width or set a max-width if needed */
+  max-width: 600px; /* Set a max width for the container */
+  margin-top: 20px; /* Space between the title and container */
+}
+
+.parktrack-title1 {
+  font-size: 4rem; /* Large font size for the title */
+  color: #FFFFFF; /* White color for the title */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Shadow for better visibility */
+  text-align: center; /* Center align the title */
+  margin: 0; /* Remove default margin */
+  padding: 20px 0; /* Optional padding around the title */
+}
+.report1-button-group {
+  display: flex; /* Use flexbox for layout */
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 411px; /* Optional: Space between the buttons */
+  margin-top: 10px; /* Space above the button group */
+}
+
+.report1-back-button {
+  background-color: #060E57; /* Primary button color */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.report1-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px; /* Space between header and form */
+}
+
+.report1-form-group {
+  margin-bottom: 15px;
+  text-align: left; /* Align labels and inputs */
+}
+
+.report1-form-label {
+  font-weight: bold;
+  color: #060E57; /* Label color */
+}
+
+.report1-form-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.report1-submit-button {
+  background-color: #060E57; /* Primary button color */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.report1-submit-button:hover {
+  opacity: 0.9; /* Slightly darker on hover */
+}
+
+.report1-message {
+  color: red; /* Style for error messages */
+  font-size: 12px;
+  margin-top: 10px;
 }

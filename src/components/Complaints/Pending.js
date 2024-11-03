@@ -21,11 +21,10 @@ const Pending = () => {
   // Define fetchReports function
   const fetchReports = async () => {
     const { data, error } = await supabase
-          .from('incident_report')
-          .select('student_id, description, proof_of_incident, remarks, submitted_at')
-          .eq('progress', 0)
-          .is('remarks', null);
-
+      .from('incident_report')
+      .select('student_id, description, proof_of_incident, remarks, submitted_at')
+      .eq('progress', 0)
+      .is('remarks', null);
 
     if (error) {
       console.error('Error fetching reports:', error.message);
@@ -58,19 +57,20 @@ const Pending = () => {
     setShowSendModal(false);
     setRemarksInput('');
   };
+
   const sendRemarks = async () => {
     if (remarksInput && selectedStudentId) {
       console.log(`Sending remarks: ${remarksInput} for Student ID: ${selectedStudentId}`);
-  
+
       const { data, error } = await supabase
         .from('incident_report')
-        .update({ 
+        .update({
           remarks: remarksInput, // Update remarks
           progress: 1            // Update progress (or any desired value)
         })
         .eq('student_id', selectedStudentId)
         .select('student_id, remarks'); // Specify the columns you want to return
-  
+
       if (error) {
         console.error('Error sending remarks:', error);
         alert(`Error: ${error.message}`);
@@ -87,7 +87,8 @@ const Pending = () => {
     } else {
       console.warn('Remarks input or selectedStudentId is empty');
     }
-  };  
+  };
+
   const openViewModal = (remarks) => {
     setViewRemarks(remarks || 'No remarks available');
     setShowViewModal(true);
@@ -118,6 +119,7 @@ const Pending = () => {
         <div className='admin1-dashboard'>
           <button onClick={() => navigate('/Admin')} className="admin1-sidebar-button">Dashboard</button>
           <button className="admin1-sidebar-button">Complaints</button>
+          {/* Complaint buttons in a column */}
           <div className='admin1-complaints'>
             <button className="admin1-sidebar-button" onClick={() => navigate('/Pending')}>Pending</button>
             <button className="admin1-sidebar-button" onClick={() => navigate('/OnProgress')}>On Progress</button>
@@ -172,7 +174,7 @@ const Pending = () => {
           )}
         </div>
       </div>
-  
+
       {/* Send Remarks Modal */}
       {showSendModal && (
         <div className="admin1-modal">
@@ -188,7 +190,7 @@ const Pending = () => {
           </div>
         </div>
       )}
-  
+
       {/* View Remarks Modal */}
       {showViewModal && (
         <div className="admin1-modal">
@@ -199,7 +201,7 @@ const Pending = () => {
           </div>
         </div>
       )}
-  
+
       {/* View Proof Modal */}
       {showProofModal && (
         <div className="admin1-modal">
@@ -211,7 +213,7 @@ const Pending = () => {
         </div>
       )}
     </div>
-  );  
+  );
 };
 
 export default Pending;
