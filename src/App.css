@@ -174,15 +174,203 @@ h1 {
 
 /* Admin */
 
+/* Container for the admin page layout */
 .admin-container {
   display: flex;
   flex-direction: column;
-  background-color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   flex-grow: 11;
   overflow-y: scroll;
 }
 
+/* Style for the title in the report container */
+.report-title {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  padding-left: 20px;
+  z-index: 1;
+  background-color: #ffff;
+}
+
+/* Report container styling */
+.report-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Background image styling for the report container */
+.report-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/src/components/public/background.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.8;
+  filter: blur(2px);
+}
+
+/* Styling for header container */
+.header-container {
+  background-color: #3b5159;
+  display: flex;
+  height: 40px;
+  z-index: 1;
+}
+
+/* Progress container layout */
+.progress-container {
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Styles for progress items */
+.progress-container div {
+  height: 180px;
+  width: 25%;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Pending report item styling */
+.progress-container .pending {
+  background-color: #ff6363;
+  cursor: pointer;
+}
+
+.pending-icon {
+  display: flex;
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: 20px;
+}
+
+/* On Progress report item styling */
+.progress-container {
+  display: flex;
+  justify-content: space-around; /* Distributes space evenly between items */
+  padding: 20px; /* Adds padding around the container */
+}
+
+.admin1-pending {
+  background-color: #f8d7da; /* Light red */
+  border: 1px solid #bd0113; /* Darker red border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 10px; /* Internal padding */
+  text-align: center; /* Centers content */
+  cursor: pointer; /* Changes cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.admin1-pending:hover {
+  background-color: #f5c6cb; /* Darker red on hover */
+}
+
+.admin1-onprogress {
+  background-color: #ffeeba; /* Orange */
+  border: 1px solid #ffeeba; /* Darker orange border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 10px; /* Internal padding */
+  text-align: center; /* Centers content */
+  cursor: pointer; /* Changes cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.admin1-onprogress:hover {
+  background-color: #ffe8a1; /* Darker orange on hover */
+}
+
+.admin1-solved {
+  background-color: #d4edda; /* Light green */
+  border: 1px solid #c3e6cb; /* Darker green border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 10px; /* Internal padding */
+  text-align: center; /* Centers content */
+  cursor: pointer; /* Changes cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.admin1-solved:hover {
+  background-color: #c3e6cb; /* Darker green on hover */
+}
+
+.admin1-icon {
+  margin-bottom: 5px; /* Spacing between icon and text */
+}
+
+.count {
+  font-size: 1.5em; /* Larger font for count */
+  font-weight: bold; /* Makes count bold */
+}
+
+.label {
+  font-size: 1em; /* Standard font size for labels */
+}
+
+/* Table title styling based on status */
+.table-title-pending, .table-title-onprogress, .table-title-solved {
+  margin-top: 20px;
+  padding: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  z-index: 1;
+}
+
+.table-title-pending {
+  background-color: #ff6363;
+}
+
+.table-title-onprogress {
+  background-color: #ffac63;
+}
+
+.table-title-solved {
+  background-color: #84ff74;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .progress-container {
+    flex-direction: column;
+  }
+
+  .progress-container .pending,
+  .progress-container .onprogress,
+  .progress-container .solved {
+    width: 80%; /* Adjust width for smaller screens */
+  }
+
+  html {
+    font-size: 10px; /* Base font size for mobile */
+  }
+  
+  .users-table {
+    min-width: 369px;
+  }
+}
+
+/* Report container list styling */
 .report-container h2 {
   color: #060E57;
 }
@@ -200,174 +388,7 @@ h1 {
   background-color: #f9f9f9;
 }
 
-.report-title {
-  display: flex;
-  height: 40px;
-  align-items: center;
-  padding-left: 20px;
-  z-index: 1;
-  background-color: #ffff;
-}
-
-.progress-container {
-  z-index: 1; /* Places the background behind the container content */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  height: 100vh;
-}
-
-@media (max-width: 768px) {
-  .progress-container {
-    flex-direction: column; /* Hide sidebar on smaller screens */
-  }
-
-  .progress-container .pending {
-    width: 50%;
-  }
-
-  .progress-container .onprogress {
-    width: 50%;
-  }
-
-  .progress-container .solved {
-    width: 50%;
-  }
-
-  html {
-    font-size: 10px; /* Sets base font size for the entire document */
-  }
-  
-  .users-table {
-    min-width: 369px;
-  }
-
-}
-
-.progress-container div {
-  height: 180px;
-  width: 25%;
-  margin: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  flex-direction: column;
-  position: relative;
-}
-
-.progress-container .pending{
-  background-color: #ff6363;
-  display: flex;
-  cursor: pointer;
-}
-
-.pending-icon {
-  display: flex;
-  position: absolute;
-  height: 100%;
-  left: 0;
-  top: 0;
-  margin: 20px
-}
-
-.complaints {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-  margin-left: 30px;
-}
-
-.progress-container .onprogress{
-  background-color: #ffac63;
-  display: flex;
-  cursor: pointer;
-}
-
-.onprogress-icon {
-  display: flex;
-  position: absolute;
-  height: 100%;
-  left: 0;
-  top: 0;
-  margin: 20px
-}
-
-.progress-container .solved{
-  background-color: #84ff74;
-  cursor: pointer;
-}
-
-.solved-icon {
-  display: flex;
-  position: absolute;
-  height: 100%;
-  left: 0;
-  top: 0;
-  margin: 20px
-}
-
-.table-title-pending {
-  margin-top: 20px;
-  padding: 20px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  z-index: 1; /* Places the background behind the container content */
-  background-color: #ff6363;
-}
-
-.table-title-onprogress {
-  margin-top: 20px;
-  padding: 20px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  z-index: 1; /* Places the background behind the container content */
-  background-color: #ffac63;
-}
-
-.table-title-solved {
-  margin-top: 20px;
-  padding: 20px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  z-index: 1; /* Places the background behind the container content */
-  background-color: #84ff74;
-}
-
-.report-container {
-  position: relative; /* Allows absolute positioning for the pseudo-element */
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  flex-grow: 11;
-  overflow: scroll; /* Ensures the background stays within the container’s border-radius */
-}
-
-.report-container::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("/src/components/public/background.jpg");
-  background-size: cover;
-  background-position: center;
-  opacity: 0.8; /* Adjust the opacity as desired */
-  filter: blur(2px); /* Adjust the blur level */
-}
-
-.header-container { 
-  background-color: #3b5159;
-  display: flex;
-  height: 40px;
-  z-index: 1;
-}
-
+/* User list styling */
 .user-list {
   margin-top: 20px;
 }
@@ -1080,4 +1101,150 @@ tr:nth-child(even) {
 .proof-image {
   max-width: 100%;
   height: auto;
+}
+
+.admin1-container {
+  display: flex;
+}
+
+/* Sidebar Styles */
+.admin1-sidebar {
+  width: 200px;
+  background-color: #060E57;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  z-index: 1;
+  height: 100vh;
+}
+
+.admin1-profile {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin1-profile img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.admin1-dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin1-sidebar-button {
+  background-color: #060E57;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.admin1-sidebar-button:hover {
+  background-color: #004080;
+}
+
+.admin1-logout-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.admin1-logout-button:hover {
+  background-color: #c0392b;
+}
+
+/* Content Area Styles */
+.admin1-content {
+  flex: 1;
+  padding: 20px;
+  z-index: 1;
+}
+
+/* Box Style for Content */
+.admin1-no-edge-box {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Dashboard Title */
+.admin1-parktrack-title {
+  font-size: 2em;
+  color: #060E57;
+  margin-bottom: 20px;
+}
+
+/* Slot Container */
+.slots-container {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slots-text {
+  color: #333;
+  font-weight: bold;
+}
+
+.slots-number {
+  font-size: 2em;
+  color: #060E57;
+}
+
+/* Progress Container */
+.progress-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.admin1-pending, .admin1-onprogress, .admin1-solved {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 30%;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.admin1-pending:hover, .admin1-onprogress:hover, .admin1-solved:hover {
+  transform: scale(1.05);
+}
+
+.pending-icon, .onprogress-icon, .solved-icon {
+  font-size: 1.5em;
+  color: #060E57;
+}
+
+.count {
+  font-size: 1.5em;
+  color: #333;
+  margin-top: 10px;
+}
+
+.label {
+  color: #555;
+  font-weight: bold;
+  margin-top: 5px;
+}
+.admin1-table-title {
+  color: whitesmoke;
+  font-size: x-large;
 }
