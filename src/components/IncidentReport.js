@@ -102,6 +102,7 @@ const IncidentReport = () => {
               onChange={(e) => setDescription(e.target.value)}
               required
               className="form-input"
+              placeholder='please provide a clear description on what happened.'
             />
           </div>
           <div className="form-group">
