@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import { supabase } from '../utils/supabaseClient' // Import Supabase client
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '../utils/supabaseClient';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import profileicon from '../public/profile-icon.png';
@@ -8,126 +8,129 @@ import profileicon from '../public/profile-icon.png';
 const Solved = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [selectedStudentId, setSelectedStudentId] = useState(null);
+  const [remarksInput, setRemarksInput] = useState('');
+  const [showSendModal, setShowSendModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [viewRemarks, setViewRemarks] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReports = async () => {
-      // Fetch data from Supabase with filtering for non-null progress values
       const { data, error } = await supabase
         .from('incident_report')
-        .select('student_id, description, submitted_at')
-        .not('remarks', 'is', null); // Use .not() to filter rows where progress is not null
-  
-      // Log the data and error for debugging
-      console.log('Data:', data);
-      console.log('Error:', error);
-  
-      // Handle the response
+        .select('student_id, description, submitted_at, remarks')
+        .not('remarks', 'is', null);
+
       if (error) {
         console.error('Error fetching reports:', error.message);
-      } else if (data) {
+      } else {
         setReports(data);
-        console.log('Fetched reports:', data);
       }
-  
-      setLoading(false); // Update loading state
+      setLoading(false);
     };
-  
-    fetchReports();
-  }, []); // Empty dependency array to run once on mount
 
-  // Logout function
+    fetchReports();
+  }, []);
+
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error('Logout error:', error.message);
     } else {
-      // Redirect to login page or perform other actions after logout
-      window.location.href = '/'; // Redirect to the login page
+      window.location.href = '/';
     }
   };
 
-  // Function to navigate to the Users page
   const navigateToUsers = () => {
-    navigate('/users'); // Navigate to the Users page
+    navigate('/users');
   };
 
   const navigateToDashboard = () => {
-    navigate('/Admin'); // Navigate to the Users page
+    navigate('/Admin');
   };
 
-  const navigateToPending = () => {
-    navigate('/Pending'); // Navigate to the Users page
+  const openViewModal = (remarks) => {
+    setViewRemarks(remarks || 'No remarks available');
+    setShowViewModal(true);
   };
 
-  const navigateToOnProgress = () => {
-    navigate('/OnProgress'); // Navigate to the Users page
-  };
-
-  const navigateToSolved = () => {
-    navigate('/Solved'); // Navigate to the Users page
+  const closeViewModal = () => {
+    setShowViewModal(false);
+    setViewRemarks('');
   };
 
   return (
     <div className='container'>
       <div className='side-bar'>
-          <div className='Logo'>PARK NIGGA</div>
-          <div className='Profile'>
-            <img src={profileicon} alt="profile-icon"></img>
-            <div>ADMIN</div>
-            <div>Settings</div>
+        <div className='Logo'>PARK NIGGA</div>
+        <div className='Profile'>
+          <img src={profileicon} alt="profile-icon" />
+          <div>ADMIN</div>
+          <div>Settings</div>
+        </div>
+        <div className='Dashboard'>
+          <button onClick={navigateToDashboard}>Dashboard</button>
+          <button>Complaints</button>
+          <div className='complaints'>
+            <button onClick={() => navigate('/Pending')}>Pending</button>
+            <button onClick={() => navigate('/OnProgress')}>On Progress</button>
+            <button onClick={() => navigate('/Solved')}>Solved</button>
           </div>
-          <div className='Dashboard'>
-            <button onClick={navigateToDashboard}>Dashboard</button>
-            <button>Complaints</button>
-              <div className='complaints'>
-                <button onClick={navigateToPending}>Pending</button>
-                <button onClick={navigateToOnProgress}>On Progress</button>
-                <button onClick={navigateToSolved}>Solved</button>
-              </div>
-            <button onClick={navigateToUsers}>Registered Users</button>
-            <button>Button 2</button>
-            <button onClick={handleLogout} className="logout-button">Logout</button>
-          </div>
-      </div>
-    <div className="admin-container">
-      <div className='header-container'>
-     <div className='menu-icon'> <FontAwesomeIcon icon={faBars} /></div>
-      </div>
-      <div className='report-title'>Dashboard</div>
-      <div className="report-container">
-          {/* Show loading message if data is still being fetched */}
-          <div className='table-title-solved'>Solved</div>
-         {loading ? (
-        <p>Loading users...</p>
-      ) : reports.length > 0 ? (
-        <table className="users-table">
-          <thead>
-            <tr>
-              <th>Ticket #</th>
-              <th>Student ID</th> {/* Column for numbering */}
-              <th>Date</th> {/* Column for Student ID */}
-              <th>Description</th> {/* Column for creation date */}
-              <th>Take Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reports.map((report, index) => (
-              <tr key={report.student_id}>
-                <td>{index + 1}</td> {/* Display index as row number */}
-                <td>{report.student_id}</td> {/* Display student ID */}
-                <td>{new Date(report.submitted_at).toLocaleDateString()}</td> {/* Format and display creation date */}
-                <td>{report.description}</td> {/* Display student ID */}
-                <td className='send-button'><button>View Details</button></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>No registered users found.</p> // Show message if no users are found
-      )}
+          <button onClick={navigateToUsers}>Registered Users</button>
+          <button onClick={handleLogout} className="logout-button">Logout</button>
         </div>
       </div>
+      <div className="admin-container">
+        <div className='header-container'>
+          <div className='menu-icon'><FontAwesomeIcon icon={faBars} /></div>
+        </div>
+        <div className='report-title'>Dashboard</div>
+        <div className="report-container">
+          <div className='table-title-solved'>Solved</div>
+          {loading ? (
+            <p>Loading reports...</p>
+          ) : reports.length > 0 ? (
+            <table className="users-table">
+              <thead>
+                <tr>
+                  <th>Ticket #</th>
+                  <th>Student ID</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                {reports.map((report, index) => (
+                  <tr key={report.student_id}>
+                    <td>{index + 1}</td>
+                    <td>{report.student_id}</td>
+                    <td>{new Date(report.submitted_at).toLocaleDateString()}</td>
+                    <td>{report.description}</td>
+                    <td>
+                      <button onClick={() => openViewModal(report.remarks)}>View Remarks</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>No reports found.</p>
+          )}
+        </div>
+      </div>
+
+      {/* View Remarks Modal */}
+      {showViewModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>View Remarks</h2>
+            <p>{viewRemarks}</p>
+            <button onClick={closeViewModal}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from './utils/supabaseClient'; // Import Supabase client
-import { toast } from 'react-toastify'; // Import Toast for notifications
+import { supabase } from './utils/supabaseClient';
+import { toast } from 'react-toastify';
 
 const Page1 = () => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
   const [complaints, setComplaints] = useState([]);
   const [showComplaints, setShowComplaints] = useState(false);
+  const [selectedRemarks, setSelectedRemarks] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -65,7 +67,7 @@ const Page1 = () => {
 
     const { data, error } = await supabase
       .from('incident_report')
-      .select('student_id, submitted_at, description, proof_of_incident') // Include proof_of_incident
+      .select('student_id, submitted_at, description, proof_of_incident, remarks') // Include remarks
       .eq('student_id', userInfo.student_id);
 
     if (error) {
@@ -94,6 +96,15 @@ const Page1 = () => {
 
   const handleViewProof = (proofUrl) => {
     window.open(proofUrl, '_blank'); // Open the proof image in a new tab
+  };
+
+  const handleShowRemarks = (remarks) => {
+    setSelectedRemarks(remarks ? remarks.split(';') : []); // Assuming remarks are separated by semicolons
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   if (!userInfo) {
@@ -130,7 +141,8 @@ const Page1 = () => {
                         <th>Student ID</th>
                         <th>Date Submitted</th>
                         <th>Description</th>
-                        <th>Proof of Incident</th> {/* New column */}
+                        <th>Proof of Incident</th>
+                        <th>Admin's Remark</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -145,6 +157,14 @@ const Page1 = () => {
                               onClick={() => handleViewProof(complaint.proof_of_incident)}
                             >
                               View Proof
+                            </button>
+                          </td>
+                          <td>
+                            <button 
+                              className="view-remarks-button" 
+                              onClick={() => handleShowRemarks(complaint.remarks)}
+                            >
+                              {complaint.remarks ? "View Remarks" : "No Remarks"}
                             </button>
                           </td>
                         </tr>
@@ -168,6 +188,23 @@ const Page1 = () => {
           )}
         </div>
       </div>
+
+      {/* Modal for Admin's Remarks */}
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>Admin's Remarks</h3>
+            <ul>
+              {selectedRemarks.length > 0 ? (
+                selectedRemarks.map((remark, index) => <li key={index}>{remark}</li>)
+              ) : (
+                <li>No remarks available</li>
+              )}
+            </ul>
+            <button onClick={closeModal}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

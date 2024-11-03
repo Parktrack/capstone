@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { supabase } from './utils/supabaseClient';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const IncidentReport = () => {
@@ -8,7 +7,7 @@ const IncidentReport = () => {
   const [description, setDescription] = useState('');
   const [photo, setPhoto] = useState(null);
   const [message, setMessage] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,19 +24,18 @@ const IncidentReport = () => {
       .upload(filePath, photo);
 
     if (uploadError) {
-      toast.error(`Failed to upload image: ${uploadError.message}`);
+      alert(`Failed to upload image: ${uploadError.message}`);
       console.error('Upload error:', uploadError);
       return;
     }
 
-    // Construct the public URL for the uploaded file
     const publicUrl = `${supabase.storageUrl}/object/public/incident-report/${filePath}`;
 
     const reportData = {
       student_id: studentId,
       description,
-      proof_of_incident: publicUrl, // Set the proof_of_incident field to the public URL
-      submitted_at: new Date().toISOString()
+      proof_of_incident: publicUrl,
+      submitted_at: new Date().toISOString(),
     };
 
     const { error: insertError } = await supabase
@@ -45,15 +43,15 @@ const IncidentReport = () => {
       .insert([reportData]);
 
     if (insertError) {
-      toast.error(`Failed to submit report: ${insertError.message}`);
+      alert(`Failed to submit report: ${insertError.message}`);
       return;
     }
 
-    toast.success('Incident report submitted successfully!');
+    alert('Incident report submitted successfully!');
     setStudentId('');
     setDescription('');
     setPhoto(null);
-};
+  };
 
   return (
     <div className="no-edge-box">
@@ -67,9 +65,14 @@ const IncidentReport = () => {
             <input
               type="text"
               value={studentId}
-              onChange={(e) => setStudentId(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^\d*$/.test(value) && value.length <= 10) setStudentId(value);
+              }}
+              maxLength="10"
               required
               className="form-input"
+              placeholder="Enter up to 10 digits only"
             />
           </div>
           <div className="form-group">

@@ -36,7 +36,7 @@ const Admin = () => {
   return (
     <div className='container'>
       <div className='side-bar'>
-          <div className='Logo'>PARK NIGGA</div>
+          <div className='Logo'>PARKTRACK</div>
           <div className='Profile'>
             <img src={profileicon} alt="profile-icon"></img>
             <div>ADMIN</div>
