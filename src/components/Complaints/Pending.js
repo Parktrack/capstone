@@ -21,9 +21,10 @@ const Pending = () => {
   // Define fetchReports function
   const fetchReports = async () => {
     const { data, error } = await supabase
-      .from('incident_report')
-      .select('student_id, description, proof_of_incident, remarks, submitted_at')
-      .is('remarks', null) // Only fetch reports with no remarks
+          .from('incident_report')
+          .select('student_id, description, proof_of_incident, remarks, submitted_at')
+          .eq('progress', 0)
+          .is('remarks', null);
 
 
     if (error) {
@@ -63,7 +64,10 @@ const Pending = () => {
   
       const { data, error } = await supabase
         .from('incident_report')
-        .update({ remarks: remarksInput })
+        .update({ 
+          remarks: remarksInput, // Update remarks
+          progress: 1            // Update progress (or any desired value)
+        })
         .eq('student_id', selectedStudentId)
         .select('student_id, remarks'); // Specify the columns you want to return
   

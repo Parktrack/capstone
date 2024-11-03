@@ -17,7 +17,7 @@ const OnProgress = () => {
       const { data, error } = await supabase
         .from('incident_report')
         .select('student_id, description, submitted_at, remarks')
-        .eq('progress', 'In Progress'); // Ensure you only fetch reports that are currently "In Progress"
+        .eq('progress', 1);
 
       if (error) {
         console.error('Error fetching reports:', error.message);
@@ -51,7 +51,7 @@ const OnProgress = () => {
   const markAsSolved = async (studentId) => {
     const { error } = await supabase
       .from('incident_report')
-      .update({ progress: 'Solved' }) // Update the status to 'Solved'
+      .update({ progress: 1 }) // Update the status to 'Solved'
       .eq('student_id', studentId);
 
     if (error) {
@@ -66,7 +66,10 @@ const OnProgress = () => {
   const markAsUnsolved = async (studentId) => {
     const { error } = await supabase
       .from('incident_report')
-      .update({ progress: null }) // Remove the progress data
+      .update({ 
+        progress: 0,
+        remarks: null,
+      }) // Remove the progress data
       .eq('student_id', studentId);
 
     if (error) {
