@@ -494,170 +494,224 @@ textarea {
 
 /* Login/Register */
 /* Login.css */
-.login-page {
-  display: flex; /* Use flexbox to center the container */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100vh; /* Full viewport height */
-  background-color: #f0f0f0; /* Light gray background for login page only */
+/* Styles for Login Page */
+.login1-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Change to column to stack the title and login container */
+  height: 100vh;
+  background-image: url("/src/components/public/background.jpg"); /* Set the background image */
+  background-size: cover; /* Make the background cover the entire page */
+  background-position: center; /* Center the background image */
 }
 
-.login-container {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+.login1-title {
+  font-size: 4rem; /* Large font size for the title */
+  color: #FFFFFF; /* White color for the title */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Shadow for better visibility */
+  margin-bottom: 20px; /* Space between title and container */
+}
+
+.login1-container {
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for better visibility */
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 400px; /* Fixed width for the login box */
+  position: relative; /* Required for positioning the header */
+}
+
+.login1-header-container {
+  display: flex;
+  justify-content: space-between; /* Align header elements */
+  align-items: center; /* Center align vertically */
+  width: 100%; /* Ensure the header container takes full width */
+}
+
+.login1-header-container {
+  display: flex;
+  justify-content: flex-start; /* Aligns header elements to the left */
+  align-items: center; /* Center align vertically */
+  position: absolute; /* Allows for positioning within the page */
+  top: 20px; /* Distance from the top */
+  left: 20px; /* Distance from the left */
+}
+
+.login1-back-button {
+  background-color: transparent;
+  color: #060E57; /* Text color matches the primary color */
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 65%;
+}
+
+.login1-header {
+  color: #060E57; /* Header color matches the primary color */
+  margin: 0; /* Reset margin for proper alignment */
+}
+
+.login1-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px; /* Add space between header and form */
+}
+
+.login1-form-group {
+  margin-bottom: 15px;
+  text-align: left; /* Align labels and inputs */
+}
+
+.login1-form-label {
+  font-weight: bold;
+  color: #060E57; /* Label color */
+}
+
+.login1-form-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login1-error-message {
+  color: red;
+  font-size: 12px;
+}
+
+.login1-button-group {
+  display: flex;
+  justify-content: space-between; /* Align buttons on either side */
+}
+
+.login1-submit-button {
+  background-color: #060E57; /* Primary button color */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login1-register-button {
+  background-color: #ccc; /* Secondary button color */
+  color: #060E57; /* Text color */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login1-submit-button:hover,
+.login1-register-button:hover {
+  opacity: 0.9; /* Slightly darker on hover */
+}
+body {
+  font-family: 'Roboto', sans-serif; /* Set the body font to Roboto */
+}
+
+.login1-header {
+  font-family: 'Roboto', sans-serif; /* Use Roboto for the header */
+  font-size: 2rem; /* Adjust the header font size */
+}
+
+.login1-form-label, .login1-form-input, .login1-error-message {
+  font-family: 'Roboto', sans-serif; /* Consistent font for labels, inputs, and error messages */
 }
 
 /* Register.css */
-.register-page {
-  display: flex; /* Use flexbox to center the container */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100vh; /* Full viewport height */
-  background-color: #f0f0f0; /* Light gray background for registration page only */
-}
-
-.register-container {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.form-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.error-message {
-  color: red;
-  font-size: 0.875em;
-  margin-top: 5px;
-}
-
-.button-group {
+.register1-page {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("/src/components/public/background.jpg"); /* Set the background image */
+  background-size: cover; /* Make the background cover the entire page */
+  background-position: center; /* Center the background image */
+  flex-direction: column; /* Stack elements vertically */
 }
 
-.submit-button, .register-button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.parktrack-title {
+  font-size: 4rem; /* Large font size for the title */
+  color: #ffffff; /* Use the primary color for consistency */
+  font-family: 'Roboto', sans-serif; /* Apply a user-friendly font */
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.6); /* Shadow for better visibility */
+  margin-bottom: 20px; /* Space between title and container */
 }
 
-.submit-button {
-  background-color: #007bff;
-  color: white;
+.register1-container {
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for better visibility */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 400px; /* Fixed width for the register box */
+  position: relative; /* Required for positioning the header */
 }
 
-.register-button {
-  background-color: #ccc;
-  color: black;
+.register1-header {
+  color: #060E57; /* Header color matches the primary color */
+  font-family: 'Roboto', sans-serif; /* Font for the header */
+  margin: 0; /* Reset margin for proper alignment */
 }
 
-/* Container Styles */
-
-/* Form Group */
-.form-group {
+.register1-form {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  align-items: center;
+  margin-top: 20px; /* Add space between header and form */
+}
+
+.register1-form-group {
   margin-bottom: 15px;
+  text-align: left; /* Align labels and inputs */
 }
 
-/* Label and Input Styles */
-.form-label {
+.register1-form-label {
   font-weight: bold;
-  color: #060E57;
-  text-align: center;
-  width: 100%;
+  color: #060E57; /* Label color */
 }
 
-.form-input {
+.register1-form-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
   padding: 10px;
-  border: 1px solid #060E57;
-  border-radius: 5px;
-  font-size: 16px;
   width: 100%;
-  max-width: 300px;
   box-sizing: border-box;
-  text-align: center;
 }
 
-/* Error Message */
-.error-message {
+.register1-error-message {
   color: red;
-  margin-top: 5px;
-  text-align: center;
+  font-size: 12px;
 }
 
-/* Button Styles */
-.submit-button, .register-button {
-  padding: 10px;
-  background-color: #060E57;
+.register1-button-group {
+  display: flex;
+  justify-content: space-between; /* Align buttons on either side */
+}
+
+.register1-submit-button {
+  background-color: #060E57; /* Primary button color */
   color: white;
   border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 150px;
 }
 
-.submit-button:hover, .register-button:hover {
-  background-color: #f0f0f0;
-  color: #060E57;
-}
-
-/* Button Group */
-.button-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-/* Header and Back Button */
-.header {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  padding: 20px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  box-sizing: border-box;
-  z-index: 1;
-}
-
-.back-button {
-  background-color: transparent;
-  color: #060E57;
+.register1-register-button {
+  background-color: #ccc; /* Secondary button color */
+  color: #060E57; /* Text color */
   border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  margin-left: 20px;
 }
 
+.register1-submit-button:hover,
+.register1-register-button:hover {
+  opacity: 0.9; /* Slightly darker on hover */
+}
 
 /*Users.js*/
 .users-container {
