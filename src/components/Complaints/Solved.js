@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faClipboard, faClipboardCheck, faClipboardList, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import profileicon from '../public/profile-icon.png';
 
 const Solved = () => {
@@ -66,22 +66,43 @@ const Solved = () => {
           <div>ADMIN</div>
         </div>
         <div className='admin1-dashboard'>
-          <button onClick={navigateToDashboard} className="admin1-sidebar-button">Dashboard</button>
-          <button className="admin1-sidebar-button">Complaints</button>
+          <button onClick={navigateToDashboard} className="admin1-sidebar-button">
+            <FontAwesomeIcon icon={faTachometerAlt} className="admin1-icon" />
+            Dashboard
+          </button>
+          <button className="admin1-sidebar-button">
+            <FontAwesomeIcon icon={faClipboard} className="admin1-icon" />
+            Complaints
+          </button>
           <div className='admin1-complaints'>
-            <button className="admin1-sidebar-button" onClick={() => navigate('/Pending')}>Pending</button>
-            <button className="admin1-sidebar-button" onClick={() => navigate('/OnProgress')}>On Progress</button>
-            <button className="admin1-sidebar-button" onClick={() => navigate('/Solved')}>Solved</button>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/Pending')}>
+              <FontAwesomeIcon icon={faClipboardList} className="admin1-icon" />
+              Pending
+            </button>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/OnProgress')}>
+              <FontAwesomeIcon icon={faClipboardCheck} className="admin1-icon" />
+              On Progress
+            </button>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/Solved')}>
+              <FontAwesomeIcon icon={faClipboardCheck} className="admin1-icon" />
+              Solved
+            </button>
           </div>
-          <button onClick={navigateToUsers} className="admin1-sidebar-button">Registered Users</button>
-          <button onClick={handleLogout} className="admin1-logout-button">Logout</button>
+          <button onClick={navigateToUsers} className="admin1-sidebar-button">
+            <FontAwesomeIcon icon={faUsers} className="admin1-icon" />
+            Registered Users
+          </button>
+          <button onClick={handleLogout} className="admin1-logout-button">
+            <FontAwesomeIcon icon={faSignOutAlt} className="admin1-icon" />
+            Logout
+          </button>
         </div>
       </div>
-      
+
       <div className="admin1-content">
         <div className='admin1-header-container'>
+          <div className='admin1-table-title'>Solved Reports</div>
         </div>
-        <div className='admin1-table-title'>Solved Reports</div>
         <div className="admin1-report-container">
           {loading ? (
             <p>Loading reports...</p>
@@ -104,7 +125,9 @@ const Solved = () => {
                     <td>{new Date(report.submitted_at).toLocaleDateString()}</td>
                     <td>{report.description}</td>
                     <td>
-                      <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">View Remarks</button>
+                      <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">
+                        View Remarks
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -115,7 +138,7 @@ const Solved = () => {
           )}
         </div>
       </div>
-  
+
       {/* View Remarks Modal */}
       {showViewModal && (
         <div className="admin1-modal">

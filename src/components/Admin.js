@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './utils/supabaseClient';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faBarsProgress, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faClipboard, faClipboardCheck, faClipboardList, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import profileicon from './public/profile-icon.png';
 
 const Admin = () => {
@@ -12,7 +12,6 @@ const Admin = () => {
   const [onProgressCount, setOnProgressCount] = useState(0);
   const [solvedCount, setSolvedCount] = useState(0);
 
-  // Add handleLogout function here
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated'); // Clear authentication state
     navigate('/login'); // Redirect to login
@@ -66,10 +65,22 @@ const Admin = () => {
           <div>ADMIN</div>
         </div>
         <div className='admin1-dashboard'>
-          <button className="admin1-sidebar-button">Dashboard</button>
-          <button className="admin1-sidebar-button" onClick={() => navigate('/Pending')}>Complaints</button>
-          <button className="admin1-sidebar-button" onClick={() => navigate('/users')}>Registered Users</button>
-          <button className="admin1-logout-button" onClick={handleLogout}>Logout</button>
+          <button className="admin1-sidebar-button" onClick={() => navigate('/Admin')}>
+            <FontAwesomeIcon icon={faTachometerAlt} className="admin1-icon" />
+            Dashboard
+          </button>
+          <button className="admin1-sidebar-button" onClick={() => navigate('/Pending')}>
+            <FontAwesomeIcon icon={faClipboardList} className="admin1-icon" />
+            Complaints
+          </button>
+          <button className="admin1-sidebar-button" onClick={() => navigate('/users')}>
+            <FontAwesomeIcon icon={faUsers} className="admin1-icon" />
+            Registered Users
+          </button>
+          <button className="admin1-logout-button" onClick={handleLogout}>
+            <FontAwesomeIcon icon={faSignOutAlt} className="admin1-icon" />
+            Logout
+          </button>
         </div>
       </div>
       
@@ -86,21 +97,21 @@ const Admin = () => {
           <div className="progress-container">
             <div className="admin1-pending" onClick={() => navigate('/Pending')}>
               <section className="admin1-icon pending-icon">
-                <FontAwesomeIcon icon={faSpinner} />
+                <FontAwesomeIcon icon={faClipboardList} />
               </section>
               <section className="count">{pendingCount}</section>
               <section className="label">Pending</section>
             </div>
             <div className="admin1-onprogress" onClick={() => navigate('/OnProgress')}>
               <section className="admin1-icon onprogress-icon">
-                <FontAwesomeIcon icon={faBarsProgress} />
+                <FontAwesomeIcon icon={faClipboardCheck} />
               </section>
               <section className="count">{onProgressCount}</section>
               <section className="label">On Progress</section>
             </div>
             <div className="admin1-solved" onClick={() => navigate('/Solved')}>
               <section className="admin1-icon solved-icon">
-                <FontAwesomeIcon icon={faCheckDouble} />
+                <FontAwesomeIcon icon={faClipboardCheck} />
               </section>
               <section className="count">{solvedCount}</section>
               <section className="label">Solved</section>
@@ -110,7 +121,6 @@ const Admin = () => {
       </div>
     </div>
   );
-  
 };
 
 export default Admin;

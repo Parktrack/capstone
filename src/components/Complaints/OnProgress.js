@@ -1,31 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import profileicon from '../public/profile-icon.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTachometerAlt, faClipboard, faClipboardCheck, faClipboardList, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const OnProgress = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [viewRemarks, setViewRemarks] = useState('');
+  const [selectedStudentId, setSelectedStudentId] = useState(null);
+  const [remarksInput, setRemarksInput] = useState('');
+  const [showSendModal, setShowSendModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
+  const [viewRemarks, setViewRemarks] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchReports = async () => {
-      const { data, error } = await supabase
-        .from('incident_report')
-        .select('student_id, description, submitted_at, remarks')
-        .eq('progress', 1);
+  // Fetch reports function
+  const fetchReports = async () => {
+    const { data, error } = await supabase
+      .from('incident_report')
+      .select('student_id, description, proof_of_incident, remarks, submitted_at')
+      .eq('progress', 1);
 
-      if (error) {
-        console.error('Error fetching reports:', error.message);
-      } else {
-        setReports(data);
-      }
-      setLoading(false);
-    };
+    if (error) {
+      console.error('Error fetching reports:', error.message);
+    } else {
+      console.log('Fetched reports:', data);
+      setReports(data);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
     fetchReports();
   }, []);
 
@@ -35,6 +41,44 @@ const OnProgress = () => {
       console.error('Logout error:', error.message);
     } else {
       window.location.href = '/';
+    }
+  };
+
+  const openSendModal = (studentId) => {
+    setSelectedStudentId(studentId);
+    setShowSendModal(true);
+  };
+
+  const closeSendModal = () => {
+    setShowSendModal(false);
+    setRemarksInput('');
+  };
+
+  const sendRemarks = async () => {
+    if (remarksInput && selectedStudentId) {
+      console.log(`Sending remarks: ${remarksInput} for Student ID: ${selectedStudentId}`);
+
+      const { data, error } = await supabase
+        .from('incident_report')
+        .update({ remarks: remarksInput })
+        .eq('student_id', selectedStudentId)
+        .select('student_id, remarks');
+
+      if (error) {
+        console.error('Error sending remarks:', error);
+        alert(`Error: ${error.message}`);
+      } else {
+        console.log('Data returned from Supabase:', data);
+        if (data.length > 0) {
+          alert('Remarks sent successfully!');
+          await fetchReports();
+        } else {
+          alert('No data returned. Please check if the student ID is correct.');
+        }
+      }
+      closeSendModal();
+    } else {
+      console.warn('Remarks input or selectedStudentId is empty');
     }
   };
 
@@ -48,42 +92,6 @@ const OnProgress = () => {
     setViewRemarks('');
   };
 
-  const markAsSolved = async (studentId) => {
-    const { error } = await supabase
-      .from('incident_report')
-      .update({ progress: 2 }) // Update the status to 'Solved' (progress = 2)
-      .eq('student_id', studentId);
-  
-    if (error) {
-      console.error('Error updating report status:', error.message);
-    } else {
-      // Optionally, you can remove it from the state
-      setReports((prevReports) => prevReports.filter(report => report.student_id !== studentId));
-      alert('Report marked as solved!');
-      // Optionally, navigate to the Solved page or refresh reports
-      navigate('/Solved'); // Redirect to Solved page after marking as solved
-    }
-  };
-  
-  const markAsUnsolved = async (studentId) => {
-    const { error } = await supabase
-      .from('incident_report')
-      .update({ 
-        progress: 0,
-        remarks: null,
-      }) // Remove the progress data
-      .eq('student_id', studentId);
-
-    if (error) {
-      console.error('Error updating report status:', error.message);
-    } else {
-      // Optionally, you can remove it from the state
-      setReports((prevReports) => prevReports.filter(report => report.student_id !== studentId));
-      alert('Report marked as unsolved!');
-      navigate('/Pending'); // Redirect to Pending page after marking as unsolved
-    }
-  };
-
   return (
     <div className='admin1-container'>
       <div className='admin1-sidebar'>
@@ -92,22 +100,41 @@ const OnProgress = () => {
           <div>ADMIN</div>
         </div>
         <div className='admin1-dashboard'>
-          <button onClick={() => navigate('/Admin')} className="admin1-sidebar-button">Dashboard</button>
-          <button className="admin1-sidebar-button">Complaints</button>
+          <button onClick={() => navigate('/Admin')} className="admin1-sidebar-button">
+            <FontAwesomeIcon icon={faTachometerAlt} className="admin1-icon" />
+            Dashboard
+          </button>
+          <button className="admin1-sidebar-button">
+            <FontAwesomeIcon icon={faClipboard} className="admin1-icon" />
+            Complaints
+          </button>
           <div className='admin1-complaints'>
-            <button className="admin1-sidebar-button" onClick={() => navigate('/Pending')}>Pending</button>
-            <button className="admin1-sidebar-button" onClick={() => navigate('/OnProgress')}>On Progress</button>
-            <button className="admin1-sidebar-button" onClick={() => navigate('/Solved')}>Solved</button>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/Pending')}>
+              <FontAwesomeIcon icon={faClipboardList} className="admin1-icon" />
+              Pending
+            </button>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/OnProgress')}>
+              <FontAwesomeIcon icon={faClipboardCheck} className="admin1-icon" />
+              On Progress
+            </button>
+            <button className="admin1-sidebar-button" onClick={() => navigate('/Solved')}>
+              <FontAwesomeIcon icon={faClipboardCheck} className="admin1-icon" />
+              Solved
+            </button>
           </div>
-          <button className="admin1-sidebar-button" onClick={() => navigate('/users')}>Registered Users</button>
-          <button onClick={handleLogout} className="admin1-logout-button">Logout</button>
+          <button className="admin1-sidebar-button" onClick={() => navigate('/users')}>
+            <FontAwesomeIcon icon={faUsers} className="admin1-icon" />
+            Registered Users
+          </button>
+          <button onClick={handleLogout} className="admin1-logout-button">
+            <FontAwesomeIcon icon={faSignOutAlt} className="admin1-icon" />
+            Logout
+          </button>
         </div>
       </div>
       <div className="admin1-content">
-        <div className='admin1-header-container'>
-        </div>
-        <div className='admin1-table-title'>On Progress</div>
         <div className="admin1-report-container">
+          <div className='admin1-table-title'>On Progress</div>
           {loading ? (
             <p>Loading reports...</p>
           ) : reports.length > 0 ? (
@@ -130,22 +157,41 @@ const OnProgress = () => {
                     <td>{new Date(report.submitted_at).toLocaleDateString()}</td>
                     <td>{report.description}</td>
                     <td>
-                      <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">View Remarks</button>
+                      <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">
+                        View Remarks
+                      </button>
                     </td>
                     <td>
-                      <button onClick={() => markAsSolved(report.student_id)} className="admin1-solved-button">Solved</button>
-                      <button onClick={() => markAsUnsolved(report.student_id)} className="admin1-unsolved-button">Unsolved</button>
+                      <button onClick={() => openSendModal(report.student_id)} className="admin1-send-remarks-button">
+                        Send Remarks
+                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <p>No Reports Currently On Progress..</p>
+            <p>No reports found.</p>
           )}
         </div>
       </div>
-  
+
+      {/* Send Remarks Modal */}
+      {showSendModal && (
+        <div className="admin1-modal">
+          <div className="admin1-modal-content">
+            <h2>Send Remarks</h2>
+            <textarea
+              value={remarksInput}
+              onChange={(e) => setRemarksInput(e.target.value)}
+              placeholder="Enter remarks here..."
+            />
+            <button onClick={sendRemarks} className="admin1-send-button">Send</button>
+            <button onClick={closeSendModal} className="admin1-cancel-button">Cancel</button>
+          </div>
+        </div>
+      )}
+
       {/* View Remarks Modal */}
       {showViewModal && (
         <div className="admin1-modal">
@@ -157,7 +203,7 @@ const OnProgress = () => {
         </div>
       )}
     </div>
-  );  
+  );
 };
 
 export default OnProgress;
