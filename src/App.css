@@ -1558,6 +1558,10 @@ tr:nth-child(even) {
   border-radius: 4px;
   cursor: pointer;
 }
+.cooldown-timer {
+  color: red; /* Change to a noticeable color */
+  font-weight: bold;
+}
 
 .report1-form {
   display: flex;
@@ -1584,12 +1588,18 @@ tr:nth-child(even) {
 }
 
 .report1-submit-button {
-  background-color: #060E57; /* Primary button color */
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: #060E57; /* Button color */
+  color: white; /* Text color */
+  padding: 10px 15px; /* Spacing */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  font-size: 16px; /* Font size */
+}
+
+.report1-submit-button:disabled {
+  background-color: rgb(255, 0, 0); /* Color when disabled */
+  cursor: not-allowed; /* Not allowed cursor */
 }
 
 .report1-submit-button:hover {

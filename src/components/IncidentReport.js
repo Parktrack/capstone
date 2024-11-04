@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { supabase } from './utils/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,40 @@ const IncidentReport = () => {
   const [description, setDescription] = useState('');
   const [photo, setPhoto] = useState(null);
   const [message, setMessage] = useState('');
+  const [isCooldown, setIsCooldown] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkCooldown = async () => {
+      const { data: existingReports, error: fetchError } = await supabase
+        .from('incident_report')
+        .select('submitted_at')
+        .eq('student_id', studentId)
+        .order('submitted_at', { ascending: false })
+        .limit(1); // Get the most recent report
+
+      if (fetchError) {
+        console.error('Error fetching existing reports:', fetchError.message);
+        alert('An error occurred while checking your report limit. Please try again.');
+        return;
+      }
+
+      if (existingReports.length > 0) {
+        const lastSubmittedAt = new Date(existingReports[0].submitted_at);
+        const currentTime = new Date();
+        const timeDiff = currentTime - lastSubmittedAt; // Difference in milliseconds
+
+        // Check if the difference is less than 24 hours (86400000 milliseconds)
+        if (timeDiff < 86400000) {
+          setIsCooldown(true);
+        }
+      }
+    };
+
+    if (studentId) {
+      checkCooldown();
+    }
+  }, [studentId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,24 +50,13 @@ const IncidentReport = () => {
       return;
     }
 
-    const today = new Date().toISOString().split('T')[0];
-    const { data: existingReports, error: fetchError } = await supabase
-      .from('incident_report')
-      .select('student_id')
-      .eq('student_id', studentId)
-      .gte('submitted_at', `${today}T00:00:00`)
-      .lt('submitted_at', `${today}T23:59:59`);
-
-    if (fetchError) {
-      console.error('Error fetching existing reports:', fetchError.message);
-      alert('An error occurred while checking your report limit. Please try again.');
+    if (isCooldown) {
+      setMessage('You need to wait 24 hours before submitting another report.');
       return;
     }
 
-    if (existingReports.length >= 3) {
-      setMessage('You have reached the limit of 3 reports for today.');
-      return;
-    }
+    // Navigate back to profile immediately after clicking submit
+    navigate('/profile');
 
     const filePath = `private/${studentId}/${photo.name}`;
     const { data: uploadData, error: uploadError } = await supabase
@@ -67,9 +89,11 @@ const IncidentReport = () => {
     }
 
     alert('Incident report submitted successfully!');
+    // Clear form fields
     setStudentId('');
     setDescription('');
     setPhoto(null);
+    setMessage('');
   };
 
   return (
@@ -102,6 +126,7 @@ const IncidentReport = () => {
               className="report1-form-input"
               placeholder='Please provide a clear description of what happened.'
             />
+            <p className="report1-description-message">You can only submit a report once a day.</p>
           </div>
           <div className="report1-form-group">
             <label className="report1-form-label">Upload Photo</label>
@@ -113,7 +138,13 @@ const IncidentReport = () => {
             />
           </div>
           <div className="report1-button-group">
-            <button type="submit" className="report1-submit-button">Submit</button>
+            <button 
+              type="submit" 
+              className="report1-submit-button" 
+              disabled={isCooldown} // Disable button if on cooldown
+            >
+              Submit
+            </button>
             <button className="report1-back-button" onClick={() => navigate('/profile')}>Back to Profile</button>
           </div>
         </form>
