@@ -1057,32 +1057,21 @@ tr:nth-child(even) {
   background-color: #c0392b; /* Darker red on hover */
 }
 
-
-
-/* Sidebar and Page Layout */
-.page-container {
-  display: flex;
-  min-height: 100vh;
-  overflow-y: auto;
+.page1-view-proof-button,
+.page1-view-remarks-button {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text color */
+  border-radius: 5px; /* Rounded corners */
+  padding: 8px 12px; /* Internal padding */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 0.9em; /* Slightly smaller font size */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition for background and scaling */
 }
 
-.sidebar {
-  width: 200px;
-  background-color: #060E57; /* Dark blue background */
-  color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.content {
-  margin-left: 200px; /* Space for sidebar */
-  padding: 20px;
-  width: 100%;
+.page1-view-proof-button:hover,
+.page1-view-remarks-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 /*incident report */
@@ -1315,7 +1304,7 @@ tr:nth-child(even) {
   display: flex;
   align-items: center;
   font-size: 18px; /* Larger font size */
-  font-weight: 500; /* Semi-bold for emphasis */
+  font-weight: 400; /* Semi-bold for emphasis */
   color: #ffffff; /* White color for buttons */
   background-color: transparent; /* Transparent background */
   padding: 12px 20px; /* Padding inside button */

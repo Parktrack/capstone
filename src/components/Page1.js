@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './utils/supabaseClient';
 import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faComments, faFileAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'; // Import icons
 import favicon from './public/profile-icon.png'; // Adjust the path as necessary
 
 const Page1 = () => {
@@ -126,18 +128,18 @@ const Page1 = () => {
         {/* Add the logo above the Profile button */}
         <img src={favicon} alt="Logo" className="sidebar-logo" />
         <button className="page1-sidebar-button" onClick={() => setShowComplaints(false)}>
-          Profile
+          <FontAwesomeIcon icon={faUser} /> Profile
         </button>
         <button className="page1-sidebar-button" onClick={toggleComplaints}>
-          {showComplaints ? 'Hide Complaints' : 'View Complaints'}
+          <FontAwesomeIcon icon={faComments} /> {showComplaints ? 'Hide Complaints' : 'View Complaints'}
         </button>
         <button className="page1-sidebar-button" onClick={() => navigate('/incident-report')}>
-          Report Incident
+          <FontAwesomeIcon icon={faFileAlt} /> Report Incident
         </button>
         
         {/* Add the Logout button at the bottom */}
         <button className="admin1-logout-button" onClick={handleLogout}>
-          Logout
+          <FontAwesomeIcon icon={faSignOutAlt} /> Logout
         </button>
       </div>
       <div className="page1-content">
@@ -159,30 +161,30 @@ const Page1 = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {complaints.map((complaint, index) => (
-                        <tr key={index}>
-                          <td>{complaint.student_id}</td>
-                          <td>{complaint.submission_date}</td>
-                          <td>{complaint.description}</td>
-                          <td>
-                            <button 
-                              className="view-proof-button" 
-                              onClick={() => handleShowProof(complaint.proof_of_incident)}
-                            >
-                              View Proof
-                            </button>
-                          </td>
-                          <td>
-                            <button 
-                              className="view-remarks-button" 
-                              onClick={() => handleShowRemarks(complaint.remarks)}
-                            >
-                              {complaint.remarks ? "View Remarks" : "No Remarks"}
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
+  {complaints.map((complaint, index) => (
+    <tr key={index}>
+      <td>{complaint.student_id}</td>
+      <td>{complaint.submission_date}</td>
+      <td>{complaint.description}</td>
+      <td>
+        <button 
+          className="page1-view-proof-button" // Using the new class
+          onClick={() => handleShowProof(complaint.proof_of_incident)}
+        >
+          View Proof
+        </button>
+      </td>
+      <td>
+        <button 
+          className="page1-view-remarks-button" // Using the new class
+          onClick={() => handleShowRemarks(complaint.remarks)}
+        >
+          {complaint.remarks ? "View Remarks" : "No Remarks"}
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
                   </table>
                 </div>
               ) : (
