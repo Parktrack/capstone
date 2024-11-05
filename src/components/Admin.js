@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './utils/supabaseClient';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faClipboardCheck, faClipboardList, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faClipboardList, faUsers, faSignOutAlt, faExclamationCircle, faSpinner, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import profileicon from './public/profile-icon.png';
 
 const Admin = () => {
@@ -93,21 +93,21 @@ const Admin = () => {
           <div className="progress-container">
             <div className="admin1-pending" onClick={() => navigate('/Pending')}>
               <section className="admin1-icon pending-icon">
-                <FontAwesomeIcon icon={faClipboardList} />
+                <FontAwesomeIcon icon={faExclamationCircle} size="1.5x" />
               </section>
               <section className="count">{pendingCount}</section>
               <section className="label">Pending</section>
             </div>
             <div className="admin1-onprogress" onClick={() => navigate('/OnProgress')}>
               <section className="admin1-icon onprogress-icon">
-                <FontAwesomeIcon icon={faClipboardCheck} />
+                <FontAwesomeIcon icon={faSpinner} size="1.5x" />
               </section>
               <section className="count">{onProgressCount}</section>
               <section className="label">On Progress</section>
             </div>
             <div className="admin1-solved" onClick={() => navigate('/Solved')}>
               <section className="admin1-icon solved-icon">
-                <FontAwesomeIcon icon={faClipboardCheck} />
+                <FontAwesomeIcon icon={faCheckCircle} size="1.5x" />
               </section>
               <section className="count">{solvedCount}</section>
               <section className="label">Solved</section>
