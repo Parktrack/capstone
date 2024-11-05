@@ -8,6 +8,7 @@ const IncidentReport = () => {
   const [photo, setPhoto] = useState(null);
   const [message, setMessage] = useState('');
   const [isCooldown, setIsCooldown] = useState(false);
+  const [showNotification, setShowNotification] = useState(false); // State for notification
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,9 +56,6 @@ const IncidentReport = () => {
       return;
     }
 
-    // Navigate back to profile immediately after clicking submit
-    navigate('/profile');
-
     const filePath = `private/${studentId}/${photo.name}`;
     const { data: uploadData, error: uploadError } = await supabase
       .storage
@@ -88,12 +86,17 @@ const IncidentReport = () => {
       return;
     }
 
-    alert('Incident report submitted successfully!');
+    setShowNotification(true); // Show the notification box
     // Clear form fields
     setStudentId('');
     setDescription('');
     setPhoto(null);
     setMessage('');
+
+    // Automatically navigate back to profile after a short delay
+    setTimeout(() => {
+      navigate('/profile');
+    }, 3000); // Adjust delay as needed
   };
 
   return (
@@ -150,6 +153,15 @@ const IncidentReport = () => {
         </form>
         {message && <p className="report1-message">{message}</p>}
       </div>
+
+      {showNotification && (
+        <div className="notification-overlay">
+          <div className="notification-content">
+            <h3>Report Submitted</h3>
+            <p>Your report has been submitted successfully!</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

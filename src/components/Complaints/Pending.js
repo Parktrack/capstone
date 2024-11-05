@@ -15,9 +15,9 @@ const Pending = () => {
   const [viewRemarks, setViewRemarks] = useState('');
   const [proofUrl, setProofUrl] = useState('');
   const [showProofModal, setShowProofModal] = useState(false);
+  const [notification, setNotification] = useState({ visible: false, message: '', icon: '' });
   const navigate = useNavigate();
 
-  // Fetch reports function
   const fetchReports = async () => {
     const { data, error } = await supabase
       .from('incident_report')
@@ -72,17 +72,21 @@ const Pending = () => {
 
       if (error) {
         console.error('Error sending remarks:', error);
-        alert(`Error: ${error.message}`);
+        setNotification({ visible: true, message: `Error: ${error.message}`, icon: 'error' });
       } else {
         console.log('Data returned from Supabase:', data);
         if (data.length > 0) {
-          alert('Remarks sent successfully!');
+          setNotification({ visible: true, message: 'Remarks sent successfully! The report will be On Progress.', icon: 'success' });
           await fetchReports();
         } else {
-          alert('No data returned. Please check if the student ID is correct.');
+          setNotification({ visible: true, message: 'No data returned. Please check if the student ID is correct.', icon: 'error' });
         }
       }
       closeSendModal();
+
+      setTimeout(() => {
+        setNotification({ visible: false, message: '', icon: '' });
+      }, 4000);
     } else {
       console.warn('Remarks input or selectedStudentId is empty');
     }
@@ -159,7 +163,7 @@ const Pending = () => {
                 <tr>
                   <th>Ticket #</th>
                   <th>Student ID</th>
-                  <th>Date</th>
+                  <th>Date and Time</th> 
                   <th>Description</th>
                   <th>Proof</th>
                   <th>Remarks</th>
@@ -171,7 +175,7 @@ const Pending = () => {
                   <tr key={report.student_id}>
                     <td>{index + 1}</td>
                     <td>{report.student_id}</td>
-                    <td>{new Date(report.submitted_at).toLocaleDateString()}</td>
+                    <td>{new Date(report.submitted_at).toLocaleString()}</td> 
                     <td>{report.description}</td>
                     <td className='admin1-send-button'>
                       <button onClick={() => viewProof(report.proof_of_incident)} className="admin1-view-proof-button">
@@ -229,12 +233,19 @@ const Pending = () => {
       {showProofModal && (
         <div className="admin1-modal">
           <div className="admin1-modal-content">
-            <h2>View Proof</h2>
-            <img src={proofUrl} alt="Proof of Incident" style={{ maxWidth: '100%' }} />
+            <h2>Proof of Incident</h2>
+            <img src={proofUrl} alt="Proof" className="admin1-proof-image" />
             <button onClick={closeProofModal} className="admin1-close-button">Close</button>
           </div>
         </div>
       )}
+
+      {/* Notification */}
+      {notification.visible && (
+    <div className="notification-box">
+      <span>{notification.message}</span>
+    </div>
+)}
     </div>
   );
 };

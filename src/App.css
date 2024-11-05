@@ -1479,37 +1479,37 @@ tr:nth-child(even) {
   color: whitesmoke;
   font-size: x-large;
 }
-/* Style for the Solved button */
-.admin1-solved-button {
-  background-color: #28a745; /* Green background */
+/* Solved button style */
+.admin1-solve-button {
+  background-color: #4CAF50; /* Green background */
   color: white;
-  padding: 8px 16px;
   border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 8px; /* Add space between buttons */
+  transition: background-color 0.3s ease;
+}
+
+.admin1-solve-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Unsolved button style */
+.admin1-unsolve-button {
+  background-color: #ff4d4d; /* Red background */
+  color: white;
+  border: none;
+  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
-.admin1-solved-button:hover {
-  background-color: #218838; /* Darker green on hover */
-}
-
-/* Style for the Unsolved button */
-.admin1-unsolved-button {
-  background-color: #fd0019; /* Red background */
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  margin-left: 10px;
-}
-
-.admin1-unsolved-button:hover {
-  background-color: #64030e; /* Darker red on hover */
+.admin1-unsolve-button:hover {
+  background-color: #e60000; /* Darker red on hover */
 }
 
 /*INCIDENT REPORT STYLES*/
@@ -1610,4 +1610,133 @@ tr:nth-child(even) {
   color: red; /* Style for error messages */
   font-size: 12px;
   margin-top: 10px;
+}
+
+/*notification modal*/
+
+.notification-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f8ff; /* Light background color */
+  border: 1px solid #007bff; /* Border color */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding inside the box */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  z-index: 1000; /* Ensure it appears above other content */
+  animation: fadeIn 0.5s, fadeOut 0.5s 1.5s; /* Animation effect */
+}
+
+.notification-icon {
+  font-size: 24px; /* Icon size */
+  animation: bounce 0.5s infinite; /* Animation effect */
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px); /* Bounce up */
+  }
+  60% {
+    transform: translateY(-5px); /* Bounce down */
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.notification-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.notification-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out; /* Optional fade-in effect */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*users1 style*/
+
+.users1-container {
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background for the container */
+}
+
+.user1-table {
+  width: 100%; /* Full width */
+  border-collapse: collapse; /* Merge borders */
+  margin-top: 20px; /* Space above the table */
+}
+
+.user1-table th,
+.user1-table td {
+  border: 1px solid #ccc; /* Light gray border */
+  padding: 12px; /* Space inside cells */
+  text-align: left; /* Align text to the left */
+}
+
+.user1-table th {
+  background-color: #060E57; /* Header background color */
+  color: white; /* Header text color */
+}
+
+.user1-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Zebra striping for even rows */
+}
+
+.user1-table tr:hover {
+  background-color: #e0e0e0; /* Highlight row on hover */
+}
+
+.back-button {
+  margin-bottom: 20px; /* Space below the button */
+  padding: 10px 15px; /* Button padding */
+  background-color: #060E57; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.back-button:hover {
+  background-color: #0a1e7e; /* Darker shade on hover */
 }

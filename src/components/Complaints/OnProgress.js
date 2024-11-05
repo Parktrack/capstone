@@ -13,9 +13,11 @@ const OnProgress = () => {
   const [showSendModal, setShowSendModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [viewRemarks, setViewRemarks] = useState('');
+  const [showProofModal, setShowProofModal] = useState(false);
+  const [proofUrl, setProofUrl] = useState('');
+  const [notification, setNotification] = useState({ visible: false, message: '', icon: '' });
   const navigate = useNavigate();
 
-  // Fetch reports function
   const fetchReports = async () => {
     const { data, error } = await supabase
       .from('incident_report')
@@ -44,11 +46,6 @@ const OnProgress = () => {
     }
   };
 
-  const openSendModal = (studentId) => {
-    setSelectedStudentId(studentId);
-    setShowSendModal(true);
-  };
-
   const closeSendModal = () => {
     setShowSendModal(false);
     setRemarksInput('');
@@ -60,7 +57,10 @@ const OnProgress = () => {
 
       const { data, error } = await supabase
         .from('incident_report')
-        .update({ remarks: remarksInput })
+        .update({
+          remarks: remarksInput,
+          progress: 1
+        })
         .eq('student_id', selectedStudentId)
         .select('student_id, remarks');
 
@@ -70,7 +70,10 @@ const OnProgress = () => {
       } else {
         console.log('Data returned from Supabase:', data);
         if (data.length > 0) {
-          alert('Remarks sent successfully!');
+          setNotification({ visible: true, message: 'REMARKS SENT', icon: 'success' });
+          setTimeout(() => {
+            setNotification({ visible: false, message: '', icon: '' }); 
+          }, 4000);
           await fetchReports();
         } else {
           alert('No data returned. Please check if the student ID is correct.');
@@ -82,6 +85,39 @@ const OnProgress = () => {
     }
   };
 
+  const handleSolve = async (studentId) => {
+    const { error } = await supabase
+      .from('incident_report')
+      .update({ progress: 2 })
+      .eq('student_id', studentId);
+
+    if (error) {
+      console.error('Error marking as solved:', error.message);
+      alert(`Error: ${error.message}`);
+    } else {
+      triggerNotification("Report Solved!", "solved");
+      fetchReports();
+    }
+  };
+
+  const handleUnsolve = async (studentId) => {
+    const { error } = await supabase
+      .from('incident_report')
+      .update({
+        progress: 0,
+        remarks: null
+      })
+      .eq('student_id', studentId);
+
+    if (error) {
+      console.error('Error marking as unsolved:', error.message);
+      alert(`Error: ${error.message}`);
+    } else {
+      triggerNotification("This report will be moved back to pending", "unsolved");
+      fetchReports();
+    }
+  };
+
   const openViewModal = (remarks) => {
     setViewRemarks(remarks || 'No remarks available');
     setShowViewModal(true);
@@ -90,6 +126,23 @@ const OnProgress = () => {
   const closeViewModal = () => {
     setShowViewModal(false);
     setViewRemarks('');
+  };
+
+  const openProofModal = (proofUrl) => {
+    setProofUrl(proofUrl);
+    setShowProofModal(true);
+  };
+
+  const closeProofModal = () => {
+    setShowProofModal(false);
+    setProofUrl('');
+  };
+
+  const triggerNotification = (message, type) => {
+    setNotification({ visible: true, message, icon: type });
+    setTimeout(() => {
+      setNotification({ visible: false, message: '', icon: '' });
+    }, 3000);
   };
 
   return (
@@ -143,9 +196,10 @@ const OnProgress = () => {
                 <tr>
                   <th>Ticket #</th>
                   <th>Student ID</th>
-                  <th>Date</th>
+                  <th>Date and Time</th>
                   <th>Description</th>
                   <th>Remarks</th>
+                  <th>Proof</th>
                   <th>Take Action</th>
                 </tr>
               </thead>
@@ -154,7 +208,7 @@ const OnProgress = () => {
                   <tr key={report.student_id}>
                     <td>{index + 1}</td>
                     <td>{report.student_id}</td>
-                    <td>{new Date(report.submitted_at).toLocaleDateString()}</td>
+                    <td>{new Date(report.submitted_at).toLocaleString()}</td>
                     <td>{report.description}</td>
                     <td>
                       <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">
@@ -162,46 +216,68 @@ const OnProgress = () => {
                       </button>
                     </td>
                     <td>
-                      <button onClick={() => openSendModal(report.student_id)} className="admin1-send-remarks-button">
-                        Send Remarks
+                      <button onClick={() => openProofModal(report.proof_of_incident)} className="admin1-view-proof-button">
+                        View Proof
                       </button>
+                    </td>
+                    <td>
+                      <button onClick={() => handleSolve(report.student_id)} className="admin1-solve-button">Solve</button>
+                      <button onClick={() => handleUnsolve(report.student_id)} className="admin1-unsolve-button">Unsolve</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <p>No reports found.</p>
+            <p>No reports in progress.</p>
           )}
         </div>
+
+        {/* Notification Box */}
+        {notification.visible && (
+          <div className={`notification-box ${notification.icon}`}>
+            {notification.message}
+          </div>
+        )}
+
+        {/* Send Remarks Modal */}
+        {showSendModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Send Remarks</h2>
+              <textarea
+                value={remarksInput}
+                onChange={(e) => setRemarksInput(e.target.value)}
+                placeholder="Enter remarks..."
+              />
+              <button onClick={sendRemarks}>Send</button>
+              <button onClick={closeSendModal}>Cancel</button>
+            </div>
+          </div>
+        )}
+
+        {/* View Remarks Modal */}
+        {showViewModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>View Remarks</h2>
+              <p>{viewRemarks}</p>
+              <button onClick={closeViewModal}>Close</button>
+            </div>
+          </div>
+        )}
+
+        {/* View Proof Modal */}
+        {showProofModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Proof of Incident</h2>
+              <img src={proofUrl} alt="Proof" style={{ width: '100%', maxHeight: '400px', objectFit: 'cover' }} />
+              <button onClick={closeProofModal}>Close</button>
+            </div>
+          </div>
+        )}
       </div>
-
-      {/* Send Remarks Modal */}
-      {showSendModal && (
-        <div className="admin1-modal">
-          <div className="admin1-modal-content">
-            <h2>Send Remarks</h2>
-            <textarea
-              value={remarksInput}
-              onChange={(e) => setRemarksInput(e.target.value)}
-              placeholder="Enter remarks here..."
-            />
-            <button onClick={sendRemarks} className="admin1-send-button">Send</button>
-            <button onClick={closeSendModal} className="admin1-cancel-button">Cancel</button>
-          </div>
-        </div>
-      )}
-
-      {/* View Remarks Modal */}
-      {showViewModal && (
-        <div className="admin1-modal">
-          <div className="admin1-modal-content">
-            <h2>View Remarks</h2>
-            <p>{viewRemarks}</p>
-            <button onClick={closeViewModal} className="admin1-close-button">Close</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

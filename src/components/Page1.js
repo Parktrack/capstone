@@ -16,7 +16,7 @@ const Page1 = () => {
   const [proofUrl, setProofUrl] = useState('');
   const [isProofModalOpen, setIsProofModalOpen] = useState(false);
   const [hasCooldown, setHasCooldown] = useState(false);
-  const [cooldownTime, setCooldownTime] = useState(0); // Cooldown time state
+  const [cooldownTime, setCooldownTime] = useState(0);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -58,7 +58,7 @@ const Page1 = () => {
       .select('submitted_at')
       .eq('student_id', userInfo.student_id)
       .order('submitted_at', { ascending: false })
-      .limit(1); // Get the most recent report
+      .limit(1); 
   
     if (error) {
       console.error('Error fetching cooldown status:', error.message);
@@ -69,12 +69,11 @@ const Page1 = () => {
     if (reports.length > 0) {
       const lastSubmittedAt = new Date(reports[0].submitted_at);
       const currentTime = new Date();
-      const timeDiff = currentTime - lastSubmittedAt; // Difference in milliseconds
+      const timeDiff = currentTime - lastSubmittedAt; 
   
-      // Check if the difference is less than 24 hours (86400000 milliseconds)
       if (timeDiff < 86400000) {
         setHasCooldown(true);
-        setCooldownTime(Math.floor((86400000 - timeDiff) / 1000)); // Remaining time in seconds
+        setCooldownTime(Math.floor((86400000 - timeDiff) / 1000)); 
   
         const countdown = setInterval(() => {
           setCooldownTime((prev) => {

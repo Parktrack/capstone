@@ -13,14 +13,13 @@ const Admin = () => {
   const [solvedCount, setSolvedCount] = useState(0);
 
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated'); // Clear authentication state
-    navigate('/login'); // Redirect to login
+    localStorage.removeItem('isAuthenticated'); 
+    navigate('/login');
   };
 
   useEffect(() => {
     const fetchReportCounts = async () => {
       try {
-        // Fetch pending reports: progress = 0 and remarks = null
         const { data: pendingReports, error: pendingError } = await supabase
           .from('incident_report')
           .select('*')
@@ -30,7 +29,6 @@ const Admin = () => {
         if (pendingError) throw pendingError;
         setPendingCount(pendingReports.length);
 
-        // Fetch on progress reports: progress = 1 and remarks is not null
         const { data: onProgressReports, error: onProgressError } = await supabase
           .from('incident_report')
           .select('*')
@@ -40,7 +38,6 @@ const Admin = () => {
         if (onProgressError) throw onProgressError;
         setOnProgressCount(onProgressReports.length);
 
-        // Fetch solved reports: progress = 2 and remarks is not null
         const { data: solvedReports, error: solvedError } = await supabase
           .from('incident_report')
           .select('*')

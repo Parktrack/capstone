@@ -3,21 +3,21 @@ import { supabase } from './utils/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
-  const [users, setUsers] = useState([]); 
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Running fetchUsers'); 
-  
+    console.log('Running fetchUsers');
+
     const fetchUsers = async () => {
       const { data, error } = await supabase
         .from('profiles')
         .select('student_id, created_at');
-      
-      console.log('Data:', data);  
-      console.log('Error:', error); 
-  
+
+      console.log('Data:', data);
+      console.log('Error:', error);
+
       if (error) {
         console.error('Error fetching users:', error.message);
       } else if (data) {
@@ -30,36 +30,35 @@ const Users = () => {
   }, []);
 
   return (
-    <div className="users-container">
+    <div className="users1-container">
       <h2>Registered Users</h2>
       <button className="back-button" onClick={() => navigate('/admin')}>
         Return
       </button>
 
-      {                        }
       {loading ? (
         <p>Loading users...</p>
       ) : users.length > 0 ? (
-        <table className="users-table">
+        <table className="user1-table">
           <thead>
             <tr>
-              <th>#</th> {/* Column for numbering */}
-              <th>Student ID</th> {/* Column for Student ID */}
-              <th>Date Created</th> {/* Column for creation date */}
+              <th>#</th>
+              <th>Student ID</th> 
+              <th>Date Created</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, index) => (
               <tr key={user.student_id}>
-                <td>{index + 1}</td> {/* Display index as row number */}
-                <td>{user.student_id}</td> {/* Display student ID */}
-                <td>{new Date(user.created_at).toLocaleDateString()}</td> {/* Format and display creation date */}
+                <td>{index + 1}</td>
+                <td>{user.student_id}</td> 
+                <td>{new Date(user.created_at).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <p>No registered users found.</p> // Show message if no users are found
+        <p>No registered users found.</p>
       )}
     </div>
   );
