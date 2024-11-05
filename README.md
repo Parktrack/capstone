@@ -5,7 +5,6 @@ Welcome to the **PARKTRACK** project! Our mission is to revolutionize the way pa
 ## Meet the Team 👥
 
 ### Vincent Estenzo
-![Vincent's Avatar](https://via.placeholder.com/150) <!-- Replace with a real image link -->
 *Role: Full Stack Developer*
 - Passionate about technology and innovation.
 - Loves coding and problem-solving.
@@ -13,7 +12,6 @@ Welcome to the **PARKTRACK** project! Our mission is to revolutionize the way pa
 ---
 
 ### Gmarc Collados
-![Gmarc's Avatar](https://via.placeholder.com/150) <!-- Replace with a real image link -->
 *Role: Full Stack Developer*
 - Enthusiastic about both frontend and backend development.
 - Enjoys building seamless user experiences.
@@ -21,7 +19,6 @@ Welcome to the **PARKTRACK** project! Our mission is to revolutionize the way pa
 ---
 
 ### Jerome Lagria
-![Jerome's Avatar](https://via.placeholder.com/150) <!-- Replace with a real image link -->
 *Role: IoT Specialist*
 - Specializes in IoT technology and smart solutions.
 - Aims to integrate innovative technologies into everyday systems.
@@ -29,7 +26,6 @@ Welcome to the **PARKTRACK** project! Our mission is to revolutionize the way pa
 ---
 
 ### Jayvee Contiñedo
-![Jayvee's Avatar](https://via.placeholder.com/150) <!-- Replace with a real image link -->
 *Role: IoT and Capstone Paper Manager*
 - Focused on IoT implementation and project documentation.
 - Enjoys coordinating team efforts and ensuring quality research.
