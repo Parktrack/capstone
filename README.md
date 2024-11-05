@@ -6,7 +6,6 @@ Welcome to the **PARKTRACK** project! Our mission is to revolutionize the way pa
 
 ### Vincent Estenzo
 
-![Vincent's Avatar](https://via.placeholder.com/150) <!-- Replace with a real image link -->
 _Role: Full Stack Developer_
 
 - Passionate about technology and innovation.
@@ -16,7 +15,6 @@ _Role: Full Stack Developer_
 
 ### Gmarc Collados
 
-![Gmarc's Avatar](https://via.placeholder.com/150) <!-- Replace with a real image link -->
 _Role: Full Stack Developer_
 
 - Enthusiastic about both frontend and backend development.
@@ -26,7 +24,6 @@ _Role: Full Stack Developer_
 
 ### Jerome Lagria
 
-![Jerome's Avatar](https://via.placeholder.com/150) <!-- Replace with a real image link -->
 _Role: IoT Specialist_
 
 - Specializes in IoT technology and smart solutions.
@@ -36,7 +33,6 @@ _Role: IoT Specialist_
 
 ### Jayvee Contiñedo
 
-![Jayvee's Avatar](https://via.placeholder.com/150) <!-- Replace with a real image link -->
 _Role: IoT and Capstone Paper Manager_
 
 - Focused on IoT implementation and project documentation.
