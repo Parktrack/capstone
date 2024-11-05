@@ -315,9 +315,6 @@ h1 {
   background-color: #c3e6cb; /* Darker green on hover */
 }
 
-.admin1-icon {
-  margin-bottom: 5px; /* Spacing between icon and text */
-}
 /*admin1 modal*/
 
 .admin1-send-button {
@@ -1338,12 +1335,9 @@ tr:nth-child(even) {
   font-weight: bold; /* Bold for emphasis */
   color: #f1f1f1; /* Off-white color */
 }
-
 .admin1-profile img {
-  width: 50px; /* Larger profile image */
-  height: 50px; /* Match height to width */
-  border-radius: 50%; /* Round profile image */
-  border: 2px solid #f1f1f1; /* Border around profile image */
+  width: 200px; /* Larger profile image */
+  height: 200px; /* Match height to width */
 }
 
 .admin1-dashboard {

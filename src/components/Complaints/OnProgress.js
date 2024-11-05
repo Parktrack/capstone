@@ -150,7 +150,6 @@ const OnProgress = () => {
       <div className='admin1-sidebar'>
         <div className='admin1-profile'>
           <img src={profileicon} alt="profile-icon" />
-          <div>ADMIN</div>
         </div>
         <div className='admin1-dashboard'>
           <button onClick={() => navigate('/Admin')} className="admin1-sidebar-button">

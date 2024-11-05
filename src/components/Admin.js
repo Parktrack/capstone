@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './utils/supabaseClient';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faClipboard, faClipboardCheck, faClipboardList, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faClipboardCheck, faClipboardList, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import profileicon from './public/profile-icon.png';
 
 const Admin = () => {
@@ -59,7 +59,6 @@ const Admin = () => {
       <div className='admin1-sidebar'>
         <div className='admin1-profile'>
           <img src={profileicon} alt="profile-icon" />
-          <div>ADMIN</div>
         </div>
         <div className='admin1-dashboard'>
           <button className="admin1-sidebar-button" onClick={() => navigate('/Admin')}>

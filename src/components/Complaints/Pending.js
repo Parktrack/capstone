@@ -116,9 +116,7 @@ const Pending = () => {
     <div className='admin1-container'>
       <div className='admin1-sidebar'>
         <div className='admin1-profile'>
-          <img src={profileicon} alt="profile-icon" />
-          <div>ADMIN</div>
-        </div>
+          <img src={profileicon} alt="profile-icon" />        </div>
         <div className='admin1-dashboard'>
           <button onClick={() => navigate('/Admin')} className="admin1-sidebar-button">
             <FontAwesomeIcon icon={faTachometerAlt} className="admin1-icon" />

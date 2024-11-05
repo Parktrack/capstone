@@ -58,23 +58,23 @@ const Page1 = () => {
       .select('submitted_at')
       .eq('student_id', userInfo.student_id)
       .order('submitted_at', { ascending: false })
-      .limit(1); 
-  
+      .limit(1);
+
     if (error) {
       console.error('Error fetching cooldown status:', error.message);
       toast.error('Failed to fetch cooldown status.');
       return;
     }
-  
+
     if (reports.length > 0) {
       const lastSubmittedAt = new Date(reports[0].submitted_at);
       const currentTime = new Date();
-      const timeDiff = currentTime - lastSubmittedAt; 
-  
+      const timeDiff = currentTime - lastSubmittedAt;
+
       if (timeDiff < 86400000) {
         setHasCooldown(true);
-        setCooldownTime(Math.floor((86400000 - timeDiff) / 1000)); 
-  
+        setCooldownTime(Math.floor((86400000 - timeDiff) / 1000));
+
         const countdown = setInterval(() => {
           setCooldownTime((prev) => {
             if (prev <= 1) {
@@ -110,18 +110,37 @@ const Page1 = () => {
     if (!userInfo) return;
     const { data, error } = await supabase
       .from('incident_report')
-      .select('student_id, submitted_at, description, proof_of_incident, remarks')
+      .select('student_id, submitted_at, description, proof_of_incident, remarks, progress')
       .eq('student_id', userInfo.student_id);
     if (error) {
       console.error('Error fetching complaints:', error.message);
       toast.error('Error fetching complaints. Please try again.');
       return;
     }
-    setComplaints(data.map(complaint => ({
+
+    const mappedComplaints = data.map(complaint => ({
       ...complaint,
-      submission_date: new Date(complaint.submitted_at).toLocaleString()
-    })));
+      submission_date: new Date(complaint.submitted_at).toLocaleString(),
+      status: getStatus(complaint)
+    }));
+
+    setComplaints(mappedComplaints);
     setShowComplaints(true);
+  };
+
+  const getStatus = (complaint) => {
+    console.log('Checking complaint:', complaint); // Debugging log
+    if (!complaint.remarks && complaint.progress === 0) {
+      return { text: 'PENDING', color: 'red' };
+    } else if (complaint.remarks && complaint.progress === 1) {
+      return { text: 'ON PROGRESS', color: 'orange' };
+    } else if (complaint.remarks && complaint.progress === 2) {
+      return { text: 'SOLVED', color: 'green' };
+    }
+
+    // Fallback status
+    console.warn('Unknown complaint status:', complaint); // Debugging log
+    return { text: 'UNKNOWN', color: 'gray' };
   };
 
   const toggleComplaints = () => {
@@ -188,6 +207,7 @@ const Page1 = () => {
                         <th>Description</th>
                         <th>Proof of Incident</th>
                         <th>Admin's Remark</th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -212,6 +232,9 @@ const Page1 = () => {
                               {complaint.remarks ? 'View Remarks' : 'No Remarks'}
                             </button>
                           </td>
+                          <td style={{ backgroundColor: complaint.status.color, color: 'white' }}>
+                            {complaint.status.text}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -223,38 +246,38 @@ const Page1 = () => {
             </>
           ) : (
             <>
-              <h2 className="page1-login-header">Student Information</h2>
-              <div className="page1-user-info">
-                <p><strong>Student ID:</strong> {userInfo.student_id}</p>
-                <p><strong>Name:</strong> {userInfo.name}</p>
-                <p><strong>Email:</strong> {userInfo.email}</p>
-                <p><strong>Report on Cooldown:</strong> {hasCooldown ? formatCooldownTime(cooldownTime) : 'You can submit a report today'}</p>
-              </div>
+              <h2 className="page1-user-name">{userInfo.name}</h2>
+              <p><strong>Student ID:</strong> {userInfo.student_id}</p>
+              <p><strong>Name:</strong> {userInfo.name}</p>
+              <p><strong>Email:</strong> {userInfo.email}</p>
+              {hasCooldown && (
+                <p className="cooldown-message">
+                  You can submit a new report in: {formatCooldownTime(cooldownTime)}
+                </p>
+              )}
             </>
           )}
         </div>
       </div>
-
-      {isProofModalOpen && (
-        <div className="modal-overlay" onClick={closeProofModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>Proof of Incident</h3>
-            <img src={proofUrl} alt="Proof" />
-            <button onClick={closeProofModal}>Close</button>
-          </div>
-        </div>
-      )}
-
       {isModalOpen && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>Remarks</h3>
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Remarks</h2>
             <ul>
               {selectedRemarks.map((remark, index) => (
                 <li key={index}>{remark}</li>
               ))}
             </ul>
             <button onClick={closeModal}>Close</button>
+          </div>
+        </div>
+      )}
+      {isProofModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Proof of Incident</h2>
+            <img src={proofUrl} alt="Proof of Incident" />
+            <button onClick={closeProofModal}>Close</button>
           </div>
         </div>
       )}
