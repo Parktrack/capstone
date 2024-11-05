@@ -1016,6 +1016,12 @@ body::before {
   margin: 20px 0; /* Margin above and below */
 }
 
+.modal-content img {
+  max-width: 90%; /* Adjusts to a maximum of 90% of the modal's width */
+  max-height: 80vh; /* Limits height to 80% of the viewport height */
+  object-fit: contain; /* Ensures the image maintains its aspect ratio */
+}
+
 /* Complaints Table Styles */
 .page1-complaints-table {
   margin-top: 20px; /* Space above the table */
