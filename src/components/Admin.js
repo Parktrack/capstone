@@ -14,7 +14,7 @@ const Admin = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated'); 
-    navigate('/login');
+    navigate('/admin-login');  // Changed to '/admin-login' for redirect
   };
 
   useEffect(() => {

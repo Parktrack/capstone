@@ -1,4 +1,4 @@
-// Login.js
+// AdminLogin.js
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { supabase } from './utils/supabaseClient';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = () => {
+const AdminLogin = () => {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -21,10 +21,10 @@ const Login = () => {
   });
 
   const onSubmit = async (values, { setSubmitting }) => {
-    // Prevent login for admin email
+    // Check if the email is exactly 'admin@gmail.com'
     const adminEmail = 'admin@gmail.com';
-    if (values.email === adminEmail) {
-      toast.error('Admin cannot log in here.');
+    if (values.email !== adminEmail) {
+      toast.error('only admin can login here.');
       setSubmitting(false);
       return;
     }
@@ -43,9 +43,9 @@ const Login = () => {
 
       localStorage.setItem('isAuthenticated', 'true');
 
-      // Redirecting to the user profile page after successful login
-      toast.success('Login successful! Redirecting to dashboard...');
-      navigate('/profile');
+      // Redirecting to the admin dashboard after successful login
+      toast.success('Login successful! Redirecting to admin page...');
+      navigate('/admin');
     } catch (error) {
       console.error('Error during login:', error.message);
       toast.error(`Error: ${error.message}`);
@@ -62,7 +62,7 @@ const Login = () => {
         <button className="login1-back-button" onClick={() => navigate('/')}>
           Back to Dashboard
         </button>
-        <h2 className="login1-header">Login</h2>
+        <h2 className="login1-header">Admin Login</h2>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -84,9 +84,6 @@ const Login = () => {
                 <button type="submit" className="login1-submit-button" disabled={isSubmitting}>
                   Login
                 </button>
-                <button type="button" className="login1-register-button" onClick={() => navigate('/register')}>
-                  Register
-                </button>
               </div>
             </Form>
           )}
@@ -96,4 +93,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

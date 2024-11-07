@@ -57,104 +57,146 @@
   }
 }
 
-.Dashboard {
-  display: flex;
-  flex-grow: 10;
-  flex-direction: column;
-  justify-content:start;
-  min-width: 120px;
-  border-top: 1px solid gray;
-  margin-top: 30px;
-  z-index: 1;
-  background-color: #ffff;
-}
-
-.Dashboard button {
-  padding-bottom: 20px;
-  height: 50px;
-  background-color: rgb(0, 0, 0, 0); /* Adjust last value for opacity */
-  color: gray; /* Keep text color opaque */
-  border: 0;
-  font-size: 15px;
-  text-align: start;
-  padding-left: 10px;
-  cursor: pointer;
-}
-
-.dashboard-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  background-color: white;
-  overflow: hidden; /* Prevents overflow of the dashboard */
-}
-
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+/* General Layout */
+/* Add a gradient background and a soft texture */
+.dashboard2-container {
+  background-image: url("/src/components/public/background.jpg");
+  background-size: cover; /* Ensures the background image covers the entire container */
+  background-position: center center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
   padding: 20px;
-  background-color: #060E57;
   color: white;
+  font-family: 'Arial', sans-serif;
+  min-height: 100vh; /* Ensures the container takes up the full height of the viewport */
 }
 
-h1 {
-  margin: 0;
+/* Header styling */
+.dashboard2-header {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 30px;
 }
 
-.auth-buttons {
+.dashboard2-favicon-icon {
+  width: 40px;
+  margin-right: 10px;
+}
+
+/* Slogan Section */
+.dashboard2-slogan-section {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.dashboard2-slogan-text {
+  font-size: 32px;
+  font-weight: 700;
+  color: #f3f4f6;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+/* Features Section */
+.dashboard2-features-section {
+  margin-top: 20px;
+  padding: 30px 0;
+  border-radius: 10px;
+}
+
+.dashboard2-features-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.dashboard2-features-container {
   display: flex;
-  gap: 10px;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.auth-button {
-  padding: 10px 20px;
-  background-color: white;
-  color: #060E57;
-  border: none;
-  cursor: pointer;
+.dashboard2-feature-item {
+  text-align: center;
+  background: #1e2a78;
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(253, 253, 253, 0.1);
+}
+
+.dashboard2-feature-title {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #f3f4f6;
+  font-style: italic;
+}
+
+.dashboard2-feature-description {
   font-size: 16px;
-  border-radius: 20px;
+  color: #f3f4f6;
 }
 
-.auth-button:hover {
-  background-color: #f0f0f0;
-}
-
-.dashboard-content {
+/* Slots Section */
+.dashboard2-slots-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-grow: 1;
-  text-align: center;
-  max-width: auto; /* Prevents the content from exceeding the width */
-  padding: 10px; /* Adds some space to the edges */
-  z-index: 1;
+  margin-top: 50px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  max-width: 350px;
+  margin: 0 auto;
 }
 
-.slots-container {
-  border: 3px solid #060E57;
-  border-radius: 15px;
-  padding: 30px 40px;
-  width: 100%; /* Use 100% width for better responsiveness */
-  max-width: 200px; /* Maximum width for the container */
-  background-color: white;
-  text-align: center;
-}
-
-.slots-text {
-  font-size: 20px;
-  color: #060E57;
-  margin-bottom: 10px;
+.dashboard2-slots-text {
+  font-size: 24px;
   font-weight: bold;
+  margin-right: 20px;
 }
 
-.slots-number {
-  font-size: 50px;
+.dashboard2-slots-number {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+/* Get Started Button */
+.dashboard2-get-started-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.dashboard2-get-started-button {
+  background-color: #1529e0;
+  color: white;
+  font-size: 22px; /* Increased font size */
+  padding: 20px 40px; /* Increased padding for larger button */
+  border: none;
+  cursor: pointer;
+  border-radius: 8px; /* Slightly rounded corners */
+  transition: background-color 0.3s ease;
   font-weight: bold;
-  color: #060E57;
-  margin: 0;
+  width: auto;
+}
+
+.dashboard2-get-started-button:hover {
+  background-color: #0e1d8f; /* Darker shade for hover effect */
+}
+
+@media (max-width: 768px) {
+  .features-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .slots-container {
+    flex-direction: column;
+  }
 }
 
 
@@ -1349,6 +1391,8 @@ tr:nth-child(even) {
 
 .admin1-container {
   display: flex;
+  height: 100vh;
+  
 }
 
 
@@ -1987,4 +2031,126 @@ html, body {
   height: 100%;
   margin: 0;
   overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/*adminlogin1*/
+/* Admin Login Styles */
+.adminlogin1-container {
+  background-image: url('/src/components/public/background.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+/* Admin Login Styles */
+.adminlogin1-container {
+  background-image: url('/src/components/public/background.jpg');
+  background-size: cover; /* Ensure background covers the entire container */
+  padding: 20px;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Allow column layout for header and form */
+}
+
+.adminlogin1-header {
+  text-align: center;
+  margin-bottom: 20px; /* Reduced margin for better spacing */
+  width: 100%;
+}
+
+.adminlogin1-header h1 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #000b22;
+  margin: 0;
+}
+
+.adminlogin1-form-container {
+  background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent black background */
+  padding: 40px; /* More padding for the form container */
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align form items */
+}
+
+.adminlogin1-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ensure the form spans full width of the container */
+}
+
+.adminlogin1-input-container {
+  margin-bottom: 20px;
+  width: 100%; /* Ensure input container takes up full width */
+}
+
+.adminlogin1-label {
+  font-size: 16px;
+  color: #f3f4f6;
+  margin-bottom: 8px;
+}
+
+.adminlogin1-input {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #1e2a78;
+  color: white;
+  width: 100%; /* Make sure input fields take up full width */
+}
+
+.adminlogin1-button {
+  background-color: #1529e0;
+  color: white;
+  font-size: 18px;
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  width: 106%; /* Make the button span the full width of the form */
+}
+
+.adminlogin1-button:hover {
+  background-color: #0e1d8f;
+}
+
+.adminlogin1-error {
+  color: #ff6666;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .adminlogin1-form-container {
+    padding: 20px;
+    width: 90%;
+  }
+
+  .adminlogin1-header h1 {
+    font-size: 28px;
+  }
+
+  .adminlogin1-input {
+    padding: 10px;
+  }
 }

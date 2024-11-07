@@ -1,27 +1,64 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTachometerAlt, faExclamationCircle, faUserCog } from '@fortawesome/free-solid-svg-icons'; // Icons import
 
 const Dashboard = () => {
   const [slotsLeft] = useState(150);
   const navigate = useNavigate();
 
   return (
-    <div className="dashboard-container">
-      <header className="dashboard-header">
+    <div className="dashboard2-container">
+      <header className="dashboard2-header">
         <h1>
-          <img src="/favicon.ico" alt="USTP Parktrack Icon" className="favicon-icon" />
+          <img src="/favicon.ico" alt="USTP Parktrack Icon" className="dashboard2-favicon-icon" />
           PARKTRACK
         </h1>
-        <div className="auth-buttons">
-          <button className="auth-button" onClick={() => navigate('/login')}>Login</button>
-          <button className="auth-button" onClick={() => navigate('/register')}>Register</button>
-        </div>
       </header>
 
-      <div className="dashboard-content">
-        <div className="slots-container">
-          <p className="slots-text">SLOTS LEFT</p>
-          <h2 className="slots-number">{slotsLeft}</h2>
+      <div className="dashboard2-content">
+        <div className="dashboard2-slots-container">
+          <p className="dashboard2-slots-text">SLOTS LEFT</p>
+          <h2 className="dashboard2-slots-number">{slotsLeft}</h2>
+        </div>
+
+        {/* Slogan Section */}
+        <section className="dashboard2-slogan-section">
+          <h2 className="dashboard2-slogan-text">"Your Bike's Safety and Complaints, Our Priority"</h2>
+        </section>
+
+        {/* Features Section */}
+        <section className="dashboard2-features-section">
+          <h2 className="dashboard2-features-title">What Parktrack Offers</h2>
+          <div className="dashboard2-features-container">
+            {/* Real-time Availability */}
+            <div className="dashboard2-feature-item">
+              <FontAwesomeIcon icon={faTachometerAlt} size="3x" className="dashboard2-feature-icon" />
+              <h3 className="dashboard2-feature-title">Real-time Availability</h3>
+              <p className="dashboard2-feature-description">Check available parking slots in real-time.</p>
+            </div>
+
+            {/* Incident Report */}
+            <div className="dashboard2-feature-item">
+              <FontAwesomeIcon icon={faExclamationCircle} size="3x" className="dashboard2-feature-icon" />
+              <h3 className="dashboard2-feature-title">Incident Report</h3>
+              <p className="dashboard2-feature-description">Report any issues with parking and manage incidents.</p>
+            </div>
+
+            {/* User Profile with Complaints History and Status */}
+            <div className="dashboard2-feature-item">
+              <FontAwesomeIcon icon={faUserCog} size="3x" className="dashboard2-feature-icon" />
+              <h3 className="dashboard2-feature-title">User Profile</h3>
+              <p className="dashboard2-feature-description">Manage your profile, complaints history, and track complaint status.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Get Started Button */}
+        <div className="dashboard2-get-started-container">
+          <button className="dashboard2-get-started-button" onClick={() => navigate('/login')}>
+            Get Started
+          </button>
         </div>
       </div>
     </div>
