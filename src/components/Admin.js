@@ -93,21 +93,21 @@ const Admin = () => {
           <div className="progress-container">
             <div className="admin1-pending" onClick={() => navigate('/Pending')}>
               <section className="admin1-icon pending-icon">
-                <FontAwesomeIcon icon={faExclamationCircle} size="1.5x" />
+                <FontAwesomeIcon icon={faExclamationCircle} size="1x" />
               </section>
               <section className="count">{pendingCount}</section>
               <section className="label">Pending</section>
             </div>
             <div className="admin1-onprogress" onClick={() => navigate('/OnProgress')}>
               <section className="admin1-icon onprogress-icon">
-                <FontAwesomeIcon icon={faSpinner} size="1.5x" />
+                <FontAwesomeIcon icon={faSpinner} size="1x" />
               </section>
               <section className="count">{onProgressCount}</section>
               <section className="label">On Progress</section>
             </div>
             <div className="admin1-solved" onClick={() => navigate('/Solved')}>
               <section className="admin1-icon solved-icon">
-                <FontAwesomeIcon icon={faCheckCircle} size="1.5x" />
+                <FontAwesomeIcon icon={faCheckCircle} size="1x" />
               </section>
               <section className="count">{solvedCount}</section>
               <section className="label">Solved</section>

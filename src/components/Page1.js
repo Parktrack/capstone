@@ -110,26 +110,25 @@ const Page1 = () => {
     if (!userInfo) return;
     const { data, error } = await supabase
       .from('incident_report')
-      .select('student_id, submitted_at, description, proof_of_incident, remarks, progress')
+      .select('id, student_id, submitted_at, description, proof_of_incident, remarks, progress')
       .eq('student_id', userInfo.student_id);
     if (error) {
       console.error('Error fetching complaints:', error.message);
       toast.error('Error fetching complaints. Please try again.');
       return;
     }
-
+  
     const mappedComplaints = data.map(complaint => ({
       ...complaint,
       submission_date: new Date(complaint.submitted_at).toLocaleString(),
       status: getStatus(complaint)
     }));
-
+  
     setComplaints(mappedComplaints);
     setShowComplaints(true);
   };
-
+  
   const getStatus = (complaint) => {
-    console.log('Checking complaint:', complaint); // Debugging log
     if (!complaint.remarks && complaint.progress === 0) {
       return { text: 'PENDING', color: 'red' };
     } else if (complaint.remarks && complaint.progress === 1) {
@@ -138,8 +137,6 @@ const Page1 = () => {
       return { text: 'SOLVED', color: 'green' };
     }
 
-    // Fallback status
-    console.warn('Unknown complaint status:', complaint); // Debugging log
     return { text: 'UNKNOWN', color: 'gray' };
   };
 
@@ -198,48 +195,50 @@ const Page1 = () => {
             <>
               <h3>Your Complaints:</h3>
               {complaints.length > 0 ? (
-                <div className="page1-complaints-table">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Student ID</th>
-                        <th>Date Submitted</th>
-                        <th>Description</th>
-                        <th>Proof of Incident</th>
-                        <th>Admin's Remark</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {complaints.map((complaint, index) => (
-                        <tr key={index}>
-                          <td>{complaint.student_id}</td>
-                          <td>{complaint.submission_date}</td>
-                          <td>{complaint.description}</td>
-                          <td>
-                            <button
-                              className="page1-view-proof-button"
-                              onClick={() => handleShowProof(complaint.proof_of_incident)}
-                            >
-                              View Proof
-                            </button>
-                          </td>
-                          <td>
-                            <button
-                              className="page1-view-remarks-button"
-                              onClick={() => handleShowRemarks(complaint.remarks)}
-                            >
-                              {complaint.remarks ? 'View Remarks' : 'No Remarks'}
-                            </button>
-                          </td>
-                          <td style={{ backgroundColor: complaint.status.color, color: 'white' }}>
-                            {complaint.status.text}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+              <div className="page1-complaints-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ticket #</th> {/* New column for Ticket # */}
+                    <th>Student ID</th>
+                    <th>Date Submitted</th>
+                    <th>Description</th>
+                    <th>Proof of Incident</th>
+                    <th>Admin's Remark</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {complaints.map((complaint, index) => (
+                    <tr key={index}>
+                      <td>{complaint.id}</td> {/* Display ID as Ticket # */}
+                      <td>{complaint.student_id}</td>
+                      <td>{complaint.submission_date}</td>
+                      <td>{complaint.description}</td>
+                      <td>
+                        <button
+                          className="page1-view-proof-button"
+                          onClick={() => handleShowProof(complaint.proof_of_incident)}
+                        >
+                          View Proof
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="page1-view-remarks-button"
+                          onClick={() => handleShowRemarks(complaint.remarks)}
+                        >
+                          {complaint.remarks ? 'View Remarks' : 'No Remarks'}
+                        </button>
+                      </td>
+                      <td style={{ backgroundColor: complaint.status.color, color: 'white' }}>
+                        {complaint.status.text}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>            
               ) : (
                 <p>No complaints found.</p>
               )}

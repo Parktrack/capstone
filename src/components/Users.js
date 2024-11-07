@@ -8,20 +8,13 @@ const Users = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Running fetchUsers');
-
     const fetchUsers = async () => {
       const { data, error } = await supabase
         .from('profiles')
         .select('student_id, created_at');
-
-      console.log('Data:', data);
-      console.log('Error:', error);
-
       if (error) {
         console.error('Error fetching users:', error.message);
       } else if (data) {
-        console.log('Fetched users:', data);
         setUsers(data);
       }
       setLoading(false);

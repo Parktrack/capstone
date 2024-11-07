@@ -20,14 +20,13 @@ const OnProgress = () => {
 
   const fetchReports = async () => {
     const { data, error } = await supabase
-      .from('incident_report')
-      .select('student_id, description, proof_of_incident, remarks, submitted_at')
-      .eq('progress', 1);
+    .from('incident_report')
+    .select('id, student_id, description, proof_of_incident, remarks, submitted_at')
+    .eq('progress', 1);
 
     if (error) {
       console.error('Error fetching reports:', error.message);
     } else {
-      console.log('Fetched reports:', data);
       setReports(data);
     }
     setLoading(false);
@@ -53,22 +52,19 @@ const OnProgress = () => {
 
   const sendRemarks = async () => {
     if (remarksInput && selectedStudentId) {
-      console.log(`Sending remarks: ${remarksInput} for Student ID: ${selectedStudentId}`);
-
       const { data, error } = await supabase
         .from('incident_report')
         .update({
           remarks: remarksInput,
           progress: 1
         })
-        .eq('student_id', selectedStudentId)
-        .select('student_id, remarks');
-
+        .eq('id', selectedStudentId)  // Use the 'id' (primary key) here
+        .select('id, remarks');  // Select the updated report's 'id' and 'remarks'
+  
       if (error) {
         console.error('Error sending remarks:', error);
         alert(`Error: ${error.message}`);
       } else {
-        console.log('Data returned from Supabase:', data);
         if (data.length > 0) {
           setNotification({ visible: true, message: 'REMARKS SENT', icon: 'success' });
           setTimeout(() => {
@@ -76,21 +72,21 @@ const OnProgress = () => {
           }, 4000);
           await fetchReports();
         } else {
-          alert('No data returned. Please check if the student ID is correct.');
+          alert('No data returned. Please check if the report ID is correct.');
         }
       }
       closeSendModal();
     } else {
-      console.warn('Remarks input or selectedStudentId is empty');
+      console.warn('Remarks input or selectedReportId is empty');
     }
   };
-
-  const handleSolve = async (studentId) => {
+  
+  const handleSolve = async (reportId) => {
     const { error } = await supabase
       .from('incident_report')
       .update({ progress: 2 })
-      .eq('student_id', studentId);
-
+      .eq('id', reportId);  // Use 'id' here
+  
     if (error) {
       console.error('Error marking as solved:', error.message);
       alert(`Error: ${error.message}`);
@@ -99,16 +95,16 @@ const OnProgress = () => {
       fetchReports();
     }
   };
-
-  const handleUnsolve = async (studentId) => {
+  
+  const handleUnsolve = async (reportId) => {
     const { error } = await supabase
       .from('incident_report')
       .update({
         progress: 0,
         remarks: null
       })
-      .eq('student_id', studentId);
-
+      .eq('id', reportId);  // Use 'id' here
+  
     if (error) {
       console.error('Error marking as unsolved:', error.message);
       alert(`Error: ${error.message}`);
@@ -117,6 +113,7 @@ const OnProgress = () => {
       fetchReports();
     }
   };
+  
 
   const openViewModal = (remarks) => {
     setViewRemarks(remarks || 'No remarks available');
@@ -203,29 +200,30 @@ const OnProgress = () => {
                 </tr>
               </thead>
               <tbody>
-                {reports.map((report, index) => (
-                  <tr key={report.student_id}>
-                    <td>{index + 1}</td>
-                    <td>{report.student_id}</td>
-                    <td>{new Date(report.submitted_at).toLocaleString()}</td>
-                    <td>{report.description}</td>
-                    <td>
-                      <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">
-                        View Remarks
-                      </button>
-                    </td>
-                    <td>
-                      <button onClick={() => openProofModal(report.proof_of_incident)} className="admin1-view-proof-button">
-                        View Proof
-                      </button>
-                    </td>
-                    <td>
-                      <button onClick={() => handleSolve(report.student_id)} className="admin1-solve-button">Solve</button>
-                      <button onClick={() => handleUnsolve(report.student_id)} className="admin1-unsolve-button">Unsolve</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+  {reports.map((report) => (
+    <tr key={report.id}> {/* Ensure that the 'id' field is being used here */}
+      <td>{report.id}</td> {/* Display the 'id' as the Ticket # */}
+      <td>{report.student_id}</td>
+      <td>{new Date(report.submitted_at).toLocaleString()}</td>
+      <td>{report.description}</td>
+      <td>
+        <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">
+          View Remarks
+        </button>
+      </td>
+      <td>
+        <button onClick={() => openProofModal(report.proof_of_incident)} className="admin1-view-proof-button">
+          View Proof
+        </button>
+      </td>
+      <td>
+        <button onClick={() => handleSolve(report.id)} className="admin1-solve-button">Solve</button>
+        <button onClick={() => handleUnsolve(report.id)} className="admin1-unsolve-button">Unsolve</button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
             </table>
           ) : (
             <p>No reports in progress.</p>

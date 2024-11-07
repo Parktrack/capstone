@@ -65,8 +65,6 @@ const Register = () => {
         toast.error(`Error saving profile data: ${profileError.message}`);
         return;
       }
-
-      console.log('User signed up and profile data saved successfully:', data);
       toast.success('Registration successful! Please check your email to confirm your account.');
       navigate('/'); 
     } catch (error) {
