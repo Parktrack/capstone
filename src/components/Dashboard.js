@@ -23,30 +23,26 @@ const Dashboard = () => {
           <h2 className="dashboard2-slots-number">{slotsLeft}</h2>
         </div>
 
-        {/* Slogan Section */}
         <section className="dashboard2-slogan-section">
           <h2 className="dashboard2-slogan-text">"Parking Safety and Your Concerns: Our Top Priority"</h2>
         </section>
 
-        {/* Features Section */}
         <section className="dashboard2-features-section">
           <h2 className="dashboard2-features-title">What Parktrack Offers</h2>
           <div className="dashboard2-features-container">
-            {/* Real-time Availability */}
+
             <div className="dashboard2-feature-item">
               <FontAwesomeIcon icon={faTachometerAlt} size="3x" className="dashboard2-feature-icon" />
               <h3 className="dashboard2-feature-title">Real-time Availability</h3>
               <p className="dashboard2-feature-description">Check available parking slots in real-time.</p>
             </div>
 
-            {/* Incident Report */}
             <div className="dashboard2-feature-item">
               <FontAwesomeIcon icon={faExclamationCircle} size="3x" className="dashboard2-feature-icon" />
               <h3 className="dashboard2-feature-title">Incident Report</h3>
               <p className="dashboard2-feature-description">Report any issues with parking and manage incidents.</p>
             </div>
 
-            {/* User Profile with Complaints History and Status */}
             <div className="dashboard2-feature-item">
               <FontAwesomeIcon icon={faUserCog} size="3x" className="dashboard2-feature-icon" />
               <h3 className="dashboard2-feature-title">User Profile</h3>
@@ -55,7 +51,6 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* Get Started Button */}
         <div className="dashboard2-get-started-container">
           <button className="dashboard2-get-started-button" onClick={() => navigate('/login')}>
             Get Started
