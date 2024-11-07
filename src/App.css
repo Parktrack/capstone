@@ -74,14 +74,14 @@
 .dashboard2-header {
   text-align: center;
   margin-bottom: 50px;
-  font-size: 30px;
+  font-size: 25px;
 }
 
-.dashboard2-favicon-icon {
-  width: 40px;
-  margin-right: 10px;
+.dashboard2-parktracklogo {
+  height: 1em; /* Matches the h1 font size */
+  margin-left: 1em;
+   /* Adds space between the icon and text */
 }
-
 /* Slogan Section */
 .dashboard2-slogan-section {
   text-align: center;

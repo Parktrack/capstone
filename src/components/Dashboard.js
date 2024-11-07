@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faExclamationCircle, faUserCog } from '@fortawesome/free-solid-svg-icons'; // Icons import
+import parktrackLogo from '../components/public/parktracklogo.png';
 
 const Dashboard = () => {
   const [slotsLeft] = useState(150);
@@ -10,12 +11,12 @@ const Dashboard = () => {
   return (
     <div className="dashboard2-container">
       <header className="dashboard2-header">
-        <h1>
-          <img src="/favicon.ico" alt="USTP Parktrack Icon" className="dashboard2-favicon-icon" />
-          PARKTRACK
-        </h1>
-      </header>
+      <h1>
+    <img src={parktrackLogo} alt="USTP Parktrack Icon" className="dashboard2-parktracklogo" />
+    PARKTRACK
+</h1>
 
+</header>
       <div className="dashboard2-content">
         <div className="dashboard2-slots-container">
           <p className="dashboard2-slots-text">SLOTS LEFT</p>
