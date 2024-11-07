@@ -32,6 +32,7 @@ const Register = () => {
 
   const onSubmit = async (values) => {
     try {
+      // Sign up the user with Supabase Auth
       const { data, error } = await supabase.auth.signUp({
         email: values.email,
         password: values.password,
@@ -49,14 +50,16 @@ const Register = () => {
         return;
       }
 
+      // Insert the user's profile into the profiles table
       const { error: profileError } = await supabase
         .from('profiles')
         .insert([
-          { 
+          {
             id: data.user.id,
             student_id: values.studentId,
             name: values.name,
             email: values.email,
+            password: values.password, // Store password in the profiles table (plaintext)
           },
         ]);
 
@@ -65,8 +68,9 @@ const Register = () => {
         toast.error(`Error saving profile data: ${profileError.message}`);
         return;
       }
+      
       toast.success('Registration successful! Please check your email to confirm your account.');
-      navigate('/'); 
+      navigate('/'); // Redirect to the home page after successful registration
     } catch (error) {
       console.error('Error during sign up:', error.message);
       toast.error(`Error: ${error.message}`);
