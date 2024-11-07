@@ -40,7 +40,7 @@ const Dashboard = () => {
             <div className="dashboard2-feature-item">
               <FontAwesomeIcon icon={faExclamationCircle} size="3x" className="dashboard2-feature-icon" />
               <h3 className="dashboard2-feature-title">Incident Report</h3>
-              <p className="dashboard2-feature-description">Report any issues with parking and manage incidents.</p>
+              <p className="dashboard2-feature-description">Report any issues with parking and manage your reports.</p>
             </div>
 
             <div className="dashboard2-feature-item">
