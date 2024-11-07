@@ -24,7 +24,7 @@ const Dashboard = () => {
 
         {/* Slogan Section */}
         <section className="dashboard2-slogan-section">
-          <h2 className="dashboard2-slogan-text">"Your Bike's Safety and Complaints, Our Priority"</h2>
+          <h2 className="dashboard2-slogan-text">"Parking Safety and Your Concerns: Our Top Priority"</h2>
         </section>
 
         {/* Features Section */}
