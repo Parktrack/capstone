@@ -18,7 +18,7 @@ const Solved = () => {
     const fetchReports = async () => {
       const { data, error } = await supabase
         .from('incident_report')
-        .select('id, student_id, description, submitted_at, remarks, proof_of_incident') // Add 'id' here
+        .select('id, student_id, description, submitted_at,completed_at, remarks, proof_of_incident')
         .eq('progress', 2) 
         .not('remarks', 'is', null); 
   
@@ -118,39 +118,41 @@ const Solved = () => {
           {loading ? (
             <p>Loading reports...</p>
           ) : reports.length > 0 ? (
-            <table className="admin1-users-table">
-              <thead>
-                <tr>
-                  <th>Ticket #</th>
-                  <th>Student ID</th>
-                  <th>Date and Time</th>
-                  <th>Description</th>
-                  <th>Remarks</th>
-                  <th>Proof</th>
-                </tr>
-              </thead>
-              <tbody>
-  {reports.map((report) => (
-    <tr key={report.id}> {/* Changed to use report.id */}
-      <td>{report.id}</td> {/* Changed to show the actual report ID */}
-      <td>{report.student_id}</td>
-      <td>{new Date(report.submitted_at).toLocaleString()}</td>
-      <td>{report.description}</td>
-      <td>
-        <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">
-          View Remarks
-        </button>
-      </td>
-      <td>
-        <button onClick={() => openProofModal(report.proof_of_incident)} className="admin1-view-proof-button">
-          View Proof
-        </button>
-      </td>
+<table className="admin1-users-table">
+  <thead>
+    <tr>
+      <th>Ticket #</th>
+      <th>Student ID</th>
+      <th>Date and Time Submitted</th>
+      <th>Date and Time Solved</th> {/* New column */}
+      <th>Description</th>
+      <th>Remarks</th>
+      <th>Proof</th>
     </tr>
-  ))}
-</tbody>
+  </thead>
+  <tbody>
+    {reports.map((report) => (
+      <tr key={report.id}>
+        <td>{report.id}</td>
+        <td>{report.student_id}</td>
+        <td>{new Date(report.submitted_at).toLocaleString()}</td>
+        <td>{report.completed_at ? new Date(report.completed_at).toLocaleString() : 'Not solved yet'}</td> {/* New column */}
+        <td>{report.description}</td>
+        <td>
+          <button onClick={() => openViewModal(report.remarks)} className="admin1-view-remarks-button">
+            View Remarks
+          </button>
+        </td>
+        <td>
+          <button onClick={() => openProofModal(report.proof_of_incident)} className="admin1-view-proof-button">
+            View Proof
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
-            </table>
           ) : (
             <p>No reports found.</p>
           )}

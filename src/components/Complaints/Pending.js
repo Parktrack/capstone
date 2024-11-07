@@ -159,7 +159,7 @@ const Pending = () => {
                 <tr>
                   <th>Ticket #</th>
                   <th>Student ID</th>
-                  <th>Date and Time</th> 
+                  <th>Date and Time Submitted</th> 
                   <th>Description</th>
                   <th>Proof</th>
                   <th>Remarks</th>

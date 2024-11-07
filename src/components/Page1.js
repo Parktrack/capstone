@@ -110,7 +110,7 @@ const Page1 = () => {
     if (!userInfo) return;
     const { data, error } = await supabase
       .from('incident_report')
-      .select('id, student_id, submitted_at, description, proof_of_incident, remarks, progress')
+      .select('id, student_id, submitted_at,completed_at, description, proof_of_incident, remarks, progress')
       .eq('student_id', userInfo.student_id);
     if (error) {
       console.error('Error fetching complaints:', error.message);
@@ -121,6 +121,7 @@ const Page1 = () => {
     const mappedComplaints = data.map(complaint => ({
       ...complaint,
       submission_date: new Date(complaint.submitted_at).toLocaleString(),
+      completed_at: new Date(complaint.completed_at).toLocaleString(),
       status: getStatus(complaint)
     }));
   
@@ -201,7 +202,8 @@ const Page1 = () => {
                   <tr>
                     <th>Ticket #</th> {/* New column for Ticket # */}
                     <th>Student ID</th>
-                    <th>Date Submitted</th>
+                    <th>Date and Time Submitted</th>
+                    <th>Date and Time Solved</th>
                     <th>Description</th>
                     <th>Proof of Incident</th>
                     <th>Admin's Remark</th>
@@ -214,6 +216,7 @@ const Page1 = () => {
                       <td>{complaint.id}</td> {/* Display ID as Ticket # */}
                       <td>{complaint.student_id}</td>
                       <td>{complaint.submission_date}</td>
+                      <td>{complaint.completed_at}</td>
                       <td>{complaint.description}</td>
                       <td>
                         <button

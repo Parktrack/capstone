@@ -84,9 +84,11 @@ const OnProgress = () => {
   const handleSolve = async (reportId) => {
     const { error } = await supabase
       .from('incident_report')
-      .update({ progress: 2 })
+      .update({ 
+        progress: 2, 
+        completed_at: new Date().toISOString() // Set current timestamp when solved
+      })
       .eq('id', reportId);  // Use 'id' here
-  
     if (error) {
       console.error('Error marking as solved:', error.message);
       alert(`Error: ${error.message}`);
@@ -192,7 +194,7 @@ const OnProgress = () => {
                 <tr>
                   <th>Ticket #</th>
                   <th>Student ID</th>
-                  <th>Date and Time</th>
+                  <th>Date and Time Submitted</th>
                   <th>Description</th>
                   <th>Remarks</th>
                   <th>Proof</th>
