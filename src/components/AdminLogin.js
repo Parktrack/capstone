@@ -21,7 +21,6 @@ const AdminLogin = () => {
   });
 
   const onSubmit = async (values, { setSubmitting }) => {
-    // Check if the email is exactly 'admin@gmail.com'
     const adminEmail = 'admin@gmail.com';
     if (values.email !== adminEmail) {
       toast.error('only admin can login here.');
@@ -59,9 +58,6 @@ const AdminLogin = () => {
       <ToastContainer />
       <h1 className="login1-title">PARKTRACK</h1>
       <div className="login1-container">
-        <button className="login1-back-button" onClick={() => navigate('/')}>
-          Back to Dashboard
-        </button>
         <h2 className="login1-header">Admin Login</h2>
         <Formik
           initialValues={initialValues}
