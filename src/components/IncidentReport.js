@@ -18,7 +18,7 @@ const IncidentReport = () => {
         .select('submitted_at')
         .eq('student_id', studentId)
         .order('submitted_at', { ascending: false })
-        .limit(1); // Get the most recent report
+        .limit(2); // Get the most recent report
 
       if (fetchError) {
         console.error('Error fetching existing reports:', fetchError.message);
@@ -129,7 +129,7 @@ const IncidentReport = () => {
               className="report1-form-input"
               placeholder='Please provide a clear description of what happened.'
             />
-            <p className="report1-description-message">You can only submit a report once a day.</p>
+            <p className="report1-description-message">You can only submit a report twice a day.</p>
           </div>
           <div className="report1-form-group">
             <label className="report1-form-label">Upload Photo</label>
@@ -144,7 +144,7 @@ const IncidentReport = () => {
             <button 
               type="submit" 
               className="report1-submit-button" 
-              disabled={isCooldown} // Disable button if on cooldown
+              disabled={isCooldown}
             >
               Submit
             </button>

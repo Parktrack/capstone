@@ -117,14 +117,12 @@ const Page1 = () => {
       toast.error('Error fetching complaints. Please try again.');
       return;
     }
-  
     const mappedComplaints = data.map(complaint => ({
       ...complaint,
       submission_date: new Date(complaint.submitted_at).toLocaleString(),
-      completed_at: new Date(complaint.completed_at).toLocaleString(),
-      status: getStatus(complaint)
+      completed_at: complaint.completed_at ? new Date(complaint.completed_at).toLocaleString() : 'Not solved yet',
+      status: getStatus(complaint),
     }));
-  
     setComplaints(mappedComplaints);
     setShowComplaints(true);
   };
@@ -212,32 +210,36 @@ const Page1 = () => {
                 </thead>
                 <tbody>
                   {complaints.map((complaint, index) => (
-                    <tr key={index}>
-                      <td>{complaint.id}</td> {/* Display ID as Ticket # */}
-                      <td>{complaint.student_id}</td>
-                      <td>{complaint.submission_date}</td>
-                      <td>{complaint.completed_at}</td>
-                      <td>{complaint.description}</td>
-                      <td>
-                        <button
-                          className="page1-view-proof-button"
-                          onClick={() => handleShowProof(complaint.proof_of_incident)}
-                        >
-                          View Proof
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          className="page1-view-remarks-button"
-                          onClick={() => handleShowRemarks(complaint.remarks)}
-                        >
-                          {complaint.remarks ? 'View Remarks' : 'No Remarks'}
-                        </button>
-                      </td>
-                      <td style={{ backgroundColor: complaint.status.color, color: 'white' }}>
-                        {complaint.status.text}
-                      </td>
-                    </tr>
+                 <tr key={index}>
+                 <td>{complaint.id}</td>
+                 <td>{complaint.student_id}</td>
+                 <td>{complaint.submission_date}</td>
+                 <td>
+                   {complaint.completed_at && complaint.completed_at !== 'null' 
+                     ? new Date(complaint.completed_at).toLocaleString() 
+                     : 'Not solved yet'}
+                 </td>
+                 <td>{complaint.description}</td>
+                 <td>
+                   <button
+                     className="page1-view-proof-button"
+                     onClick={() => handleShowProof(complaint.proof_of_incident)}
+                   >
+                     View Proof
+                   </button>
+                 </td>
+                 <td>
+                   <button
+                     className="page1-view-remarks-button"
+                     onClick={() => handleShowRemarks(complaint.remarks)}
+                   >
+                     {complaint.remarks ? 'View Remarks' : 'No Remarks'}
+                   </button>
+                 </td>
+                 <td style={{ backgroundColor: complaint.status.color, color: 'white' }}>
+                   {complaint.status.text}
+                 </td>
+               </tr>                                             
                   ))}
                 </tbody>
               </table>
