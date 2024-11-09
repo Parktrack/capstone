@@ -105,7 +105,7 @@ const Admin = () => {
           </div>
           <div className="admin1-profile">
   <div className="admin1-profile-name">
-    <span>Vincent Estenzo</span> {/* Name section */}
+    <span>Office of Student Affairs</span> {/* Name section */}
     <br />
     <span>Admin</span> {/* Admin title section */}
   </div>
