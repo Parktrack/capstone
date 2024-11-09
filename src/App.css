@@ -67,7 +67,6 @@
   padding: 20px;
   color: white;
   font-family: 'Arial', sans-serif;
-  min-height: 100vh; /* Ensures the container takes up the full height of the viewport */
 }
 
 /* Header styling */
