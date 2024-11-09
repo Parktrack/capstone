@@ -26,6 +26,11 @@ const Dashboard = () => {
         <section className="dashboard2-slogan-section">
           <h2 className="dashboard2-slogan-text">"Parking Safety and Your Concerns: Our Top Priority"</h2>
         </section>
+        <div className="dashboard2-get-started-container">
+          <button className="dashboard2-get-started-button" onClick={() => navigate('/login')}>
+            Get Started
+          </button>
+        </div>
 
         <section className="dashboard2-features-section">
           <h2 className="dashboard2-features-title">What Parktrack Offers</h2>
@@ -51,11 +56,6 @@ const Dashboard = () => {
           </div>
         </section>
 
-        <div className="dashboard2-get-started-container">
-          <button className="dashboard2-get-started-button" onClick={() => navigate('/login')}>
-            Get Started
-          </button>
-        </div>
       </div>
     </div>
   );
