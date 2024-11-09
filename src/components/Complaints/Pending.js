@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
-import profileicon from '../public/profile-icon.png';
+import adminlogo from '../public/parktracklogo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faClipboard, faClipboardCheck, faClipboardList, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -112,9 +112,10 @@ const Pending = () => {
   return (
     <div className='admin1-container'>
       <div className='admin1-sidebar'>
-        <div className='admin1-profile'>
-          <img src={profileicon} alt="profile-icon" />        
-        </div>
+      <div className="admin1-logo">
+    <img src={adminlogo} className="admin1-logo-image" alt="admin logo" />
+    <span className="admin1-logo-text">PARK <br /> TRACK</span>
+</div>
         <div className='admin1-dashboard'>
           <button onClick={() => navigate('/Admin')} className="admin1-sidebar-button">
             <FontAwesomeIcon icon={faTachometerAlt} className="admin1-icon" />

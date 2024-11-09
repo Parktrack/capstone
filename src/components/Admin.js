@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './utils/supabaseClient';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faClipboardList, faUsers, faSignOutAlt, faExclamationCircle, faSpinner, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import profileicon from './public/profile-icon.png';
+import { faHome, faClipboardList, faUsers, faSignOutAlt, faExclamationCircle, faSpinner, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import adminlogo from './public/parktracklogo.png';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -11,9 +12,11 @@ const Admin = () => {
   const [pendingCount, setPendingCount] = useState(0);
   const [onProgressCount, setOnProgressCount] = useState(0);
   const [solvedCount, setSolvedCount] = useState(0);
+  const [currentTime, setCurrentTime] = useState('');
+  const [currentDate, setCurrentDate] = useState('');
 
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated'); 
+    localStorage.removeItem('isAuthenticated');
     navigate('/admin-login');  // Changed to '/admin-login' for redirect
   };
 
@@ -52,17 +55,31 @@ const Admin = () => {
     };
 
     fetchReportCounts();
+
+    // Set the initial date
+    const today = new Date();
+    setCurrentDate(today.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
+
+    // Update time every second
+    const timer = setInterval(() => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleTimeString());
+    }, 1000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(timer);
   }, []);
 
   return (
     <div className='admin1-container'>
       <div className='admin1-sidebar'>
-        <div className='admin1-profile'>
-          <img src={profileicon} alt="profile-icon" />
+        <div className="admin1-logo">
+          <img src={adminlogo} className="admin1-logo-image" alt="admin logo" />
+          <span className="admin1-logo-text">PARK <br /> TRACK</span>
         </div>
         <div className='admin1-dashboard'>
           <button className="admin1-sidebar-button" onClick={() => navigate('/Admin')}>
-            <FontAwesomeIcon icon={faTachometerAlt} className="admin1-icon" />
+            <FontAwesomeIcon icon={faHome} className="admin1-icon" /> {/* Updated to house icon */}
             Dashboard
           </button>
           <button className="admin1-sidebar-button" onClick={() => navigate('/Pending')}>
@@ -79,18 +96,29 @@ const Admin = () => {
           </button>
         </div>
       </div>
-      
+
       <div className="admin1-content">
+        <div className="admin1-header">
+          <div className="admin1-dashboard-title">
+            <FontAwesomeIcon icon={faHome} className="admin1-header-icon" />
+            <span className="admin1-header-text">DASHBOARD</span>
+          </div>
+          <div className="admin1-profile">
+  <div className="admin1-profile-name">
+    <span>Vincent Estenzo</span> {/* Name section */}
+    <br />
+    <span>Admin</span> {/* Admin title section */}
+  </div>
+  <FontAwesomeIcon icon={faUser} className="admin1-profile-icon" />
+</div>
+        </div>
         <div className="admin1-no-edge-box">
           <div className="admin1-parktrack-title">PARKTRACK</div>
           <div className="dashboard-content">
-            <div className="slots-container">
-              <p className="slots-text">SLOTS LEFT</p>
-              <h2 className="slots-number">{slotsLeft}</h2>
-            </div>
+            {/* Other content here if needed */}
           </div>
-          
-          <div className="progress-container">
+
+          <div className="admin1-progress-container">
             <div className="admin1-pending" onClick={() => navigate('/Pending')}>
               <section className="admin1-icon pending-icon">
                 <FontAwesomeIcon icon={faExclamationCircle} size="1x" />
@@ -114,8 +142,28 @@ const Admin = () => {
             </div>
           </div>
         </div>
-      </div>
+
+        <div className="bottom-section">
+          {/* Date Section */}
+          <div className="date-container">
+            <h3>Today's Date</h3>
+            <p>{currentDate}</p>
+          </div>
+
+          {/* Clock Section */}
+          <div className="digital-clock-container">
+            <h3>Current Time</h3>
+            <div className="clock-box">
+              <p>{currentTime}</p>
+            </div>
+          </div>
+            {/* Footer */}
+      <footer className="admin1-footer">
+        <p>&copy; 2024 PARKTRACK INC Tel: +639355380789 | Got bugs or errors? Contact us here: support@parktrack.com</p>
+      </footer>
     </div>
+        </div>
+      </div>
   );
 };
 

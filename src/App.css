@@ -310,9 +310,7 @@
 
 /* On Progress report item styling */
 .progress-container {
-  display: flex;
-  justify-content: space-around; /* Distributes space evenly between items */
-  padding: 20px; /* Adds padding around the container */
+  padding: 20px;
 }
 
 .admin1-pending {
@@ -357,18 +355,50 @@
   background-color: #c3e6cb; /* Darker green on hover */
 }
 
+.admin1-logo {
+  display: flex;
+  align-items: center; /* Aligns items vertically in the center */
+}
+
+.admin1-logo-image {
+  height: 50px; /* Set this to the height you need */
+  width: auto; /* Keeps the image aspect ratio */
+  margin-right: 10px; /* Space between the image and text */
+}
+
+.admin1-logo-text {
+  font-size: 24px; /* Adjust to match image height */
+  line-height: 1.2; /* Controls spacing between "PARK" and "TRACK" */
+}
+
 /*admin1 modal*/
 
 .admin1-send-button {
   text-align: center; /* Center the buttons in the cell */
 }
 /*admin1 table*/
+
+
 .admin1-users-table {
   width: 100%; /* Full width of the container */
   border-collapse: collapse; /* Remove space between table cells */
   margin-top: 20px; /* Space above the table */
   font-family: Arial, sans-serif; /* Font style for the table */
   background-color: #f9f9f9; /* Light background color */
+  border-collapse: collapse;
+}
+.admin1-solved-table {
+  width: 100%; /* Full width of the container */
+  border-collapse: collapse; /* Remove space between table cells */
+  margin-top: 20px; /* Space above the table */
+  font-family: Arial, sans-serif; /* Font style for the table */
+  background-color: #f9f9f9; /* Light background color */
+  border-collapse: collapse;
+}
+
+.page-content {
+  margin-left: 250px; /* Adjust the left margin to the width of the sidebar */
+  padding: 20px; /* Optional: Adds space around the content */
 }
 
 .admin1-users-table th,
@@ -1391,11 +1421,16 @@ tr:nth-child(even) {
 
 .admin1-container {
   display: flex;
-  height: 100vh;
-  
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: white;
 }
 
-
+.admin1-content {
+  flex: 1; /* Makes sure the content takes up the remaining space */
+  padding: 20px; /* Optional: Adds space around the content */
+  overflow-y: auto; /* Allows scrolling if content exceeds the viewport height */
+}
 /* Sidebar Styles */
 /* General Sidebar Styling */
 .admin1-sidebar {
@@ -1461,8 +1496,28 @@ tr:nth-child(even) {
 .admin1-dashboard {
   display: flex;
   flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  overflow-y: auto; /* Enables scrolling if content exceeds the height */
+  padding: 10px; /* Optional: Adds some padding for better spacing */
+  box-sizing: border-box;
+}
+.admin1-dashboard-title {
+  display: flex;
+  align-items: center;
+  font-size: 18px; /* Adjust font size for the title */
+  color: #060E57; /* Set text color to your theme */
+  padding: 10px; /* Adjust padding for spacing */
 }
 
+.admin1-header-icon {
+  font-size: 20px; /* Adjust icon size */
+  color: #060E57; /* Set icon color to match theme */
+  margin-right: 8px; /* Space between icon and text */
+}
+
+.admin1-header-text {
+  font-weight: bold; /* Make text bold */
+}
 .admin1-sidebar-button {
   background-color: #060E57;
   color: white;
@@ -1472,10 +1527,11 @@ tr:nth-child(even) {
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s;
+  margin-top: 30px;
 }
 
 .admin1-sidebar-button:hover {
-  background-color: #004080;
+  background-color: #ffffff;
 }
 
 .admin1-logout-button {
@@ -1483,7 +1539,7 @@ tr:nth-child(even) {
   color: white;
   border: none;
   padding: 10px;
-  margin-top: 20px;
+  margin-top: auto;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s;
@@ -1501,19 +1557,11 @@ tr:nth-child(even) {
   text-align: center;
 }
 
-/* Box Style for Content */
-.admin1-no-edge-box {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
 /* Dashboard Title */
 .admin1-parktrack-title {
   font-size: 2em;
   color: #060E57;
-  margin-bottom: 20px;
+  margin-bottom: 20px;  
 }
 
 .admin1-complaints {
@@ -1536,6 +1584,67 @@ tr:nth-child(even) {
 .admin1-complaints button:hover {
   background-color: rgba(0, 0, 0, 0.1); /* Light hover effect */
 }
+/* Container for bottom section */
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 50px;
+  border-radius: 10px;
+  min-height: 250px; /* Ensure a minimum height for the whole section */
+  margin-top: 90px; /* Push this section to the bottom */
+}
+/* Date Section */
+.date-container {
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 1.5rem;
+  text-align: center;
+  width: 48%;
+}
+
+.date-container h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.date-container p {
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+/* Container for the Digital Clock */
+.digital-clock-container {
+  width: 50%; /* Adjust width as needed */
+  background-color: #333;
+  border-radius: 10px;
+  padding: 15px;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  min-height: 300px; /* Ensure the clock container has enough height */
+}
+
+/* Styling for the clock box */
+.clock-box {
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 1.5rem;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;}
+
+.clock-box p {
+  margin: 0;
+  font-size: 8rem;
+  color: #fff;
+}
+
 
 /* Slot Container */
 .slots-container {
@@ -1557,30 +1666,52 @@ tr:nth-child(even) {
 }
 
 /* Progress Container */
-.progress-container {
+.admin1-progress-container {
   display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+  justify-content: space-around; /* Distribute the boxes evenly */
+  align-items: center;
+  width: 100%; /* Full width of the container */
+  height: 200px; /* Adjust height as needed */
+  margin-top: 70px; /* Push the container towards the middle of the page */
 }
 
-.admin1-pending, .admin1-onprogress, .admin1-solved {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 30%;
-  cursor: pointer;
-  transition: transform 0.3s;
+.admin1-pending,
+.admin1-onprogress,
+.admin1-solved {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%; /* Adjust the width as needed */
+  height: 100%;
+  background-color: #f0f0f0; /* Add background color if needed */
+  border-radius: 10px; /* Optional: Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Shadow for the boxes */
 }
 
-.admin1-pending:hover, .admin1-onprogress:hover, .admin1-solved:hover {
-  transform: scale(1.05);
+.count {
+  font-size: 3em; /* Adjust size relative to the container */
+  font-weight: bold;
+  color: #060E57;
+}
+
+.label {
+  font-size: 1.5em; /* Set a reasonable size for the label */
+  color: #060E57;
+}
+
+.admin1-pending:hover,
+.admin1-onprogress:hover,
+.admin1-solved:hover {
+
+  transform: scale(.9);
 }
 
 .pending-icon, .onprogress-icon, .solved-icon {
-  font-size: 1.5em;
-  color: #060E57;
+    font-size: 1.5em;
+    color: #060E57;
+    margin: 0; /* Ensure no unwanted margin */
+    padding: 0; /* Ensure no unwanted padding */
 }
 
 .count {
@@ -1658,8 +1789,11 @@ tr:nth-child(even) {
   }
 
   .admin1-parktrack-title {
-    font-size: 1.5em;
+    font-size: 3em; /* Increased font size */
+    font-weight: bold; /* Makes the text bold */
+    font-family: 'Arial', sans-serif; /* You can change the font-family to your preferred one */
   }
+  
 
   .admin1-pending, .admin1-onprogress, .admin1-solved {
     width: 45%;
@@ -1914,6 +2048,7 @@ tr:nth-child(even) {
 .users1-container {
   padding: 20px;
   background-color: #f9f9f9; /* Light background for the container */
+  min-height: 100vh;
 }
 
 .user1-table {
@@ -2154,3 +2289,59 @@ html, body {
     padding: 10px;
   }
 }
+
+/*admin1 header stlyes*/
+.admin1-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #060E57;
+}
+
+.admin1-header-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.admin1-footer {
+  background-color: #060E57; /* Matches your color scheme */
+  color: white;
+
+  text-align: center;
+  width: 100%;
+  position: fixed; /* Ensure the footer stays at the bottom */
+  bottom: 0;
+  left: 0;
+}
+
+.admin1-footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.admin1-profile {
+  display: flex;
+  align-items: center;
+}
+
+.admin1-profile-name {
+  text-align: left;
+  margin-right: 10px; /* Adds space between the name and the icon */
+  color: black;
+}
+
+.admin1-profile-name span {
+  font-size: 14px; /* Adjust font size */
+}
+
+.admin1-profile-icon {
+  font-size: 40px; /* Adjust icon size */
+  color: #060E57; /* Set icon color to match your theme */
+}
+
+.admin1-header-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+

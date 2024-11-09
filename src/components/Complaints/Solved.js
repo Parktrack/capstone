@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faClipboard, faClipboardCheck, faClipboardList, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import profileicon from '../public/profile-icon.png';
+import adminlogo from '../public/parktracklogo.png'
 
 const Solved = () => {
   const [reports, setReports] = useState([]);
@@ -73,9 +73,10 @@ const Solved = () => {
   return (
     <div className='admin1-container'>
       <div className='admin1-sidebar'>
-        <div className='admin1-profile'>
-          <img src={profileicon} alt="profile-icon" />
-        </div>
+      <div className="admin1-logo">
+    <img src={adminlogo} className="admin1-logo-image" alt="admin logo" />
+    <span className="admin1-logo-text">PARK <br /> TRACK</span>
+</div>
         <div className='admin1-dashboard'>
           <button onClick={navigateToDashboard} className="admin1-sidebar-button">
             <FontAwesomeIcon icon={faTachometerAlt} className="admin1-icon" />
@@ -118,7 +119,7 @@ const Solved = () => {
           {loading ? (
             <p>Loading reports...</p>
           ) : reports.length > 0 ? (
-<table className="admin1-users-table">
+<table className="admin1-solved-table">
   <thead>
     <tr>
       <th>Ticket #</th>
