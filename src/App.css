@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -1134,11 +1135,12 @@ tr:nth-child(even) {
   background-color: #e74c3c; /* Red background for logout */
   color: white; /* White text color */
   border: none; /* No border */
-  padding: 10px; /* Padding */
-  margin-top: 20px; /* Margin on top */
+  padding: 15px; /* Padding */
+  margin-top: auto; /* Margin on top */
   cursor: pointer; /* Pointer cursor */
   border-radius: 5px; /* Rounded corners */
   transition: background-color 0.3s; /* Smooth background transition */
+  margin-bottom: 20px;
 }
 
 .page1-logout-button:hover {
@@ -1565,10 +1567,15 @@ tr:nth-child(even) {
 
 /* Dashboard Title */
 .admin1-parktrack-title {
-  font-size: 2em;
-  color: #060E57;
-  margin-bottom: 20px;  
+  font-size: 3em;  /* Increased font size for better visibility */
+  color: #060E57;  /* Keeping the original color */
+  margin-bottom: 20px;  /* Space below the title */
+  font-weight: bold;  /* Make the font bold */
+  text-align: center;  /* Center the text */
+  padding: 10px;  /* Add some padding around the title */
+  text-transform: uppercase;  /* Uppercase for added emphasis */
 }
+
 
 .admin1-complaints {
   display: flex;
@@ -1598,7 +1605,7 @@ tr:nth-child(even) {
   gap: 50px;
   border-radius: 10px;
   min-height: 250px; /* Ensure a minimum height for the whole section */
-  margin-top: 90px; /* Push this section to the bottom */
+  margin-top: 30px; /* Push this section to the bottom */
 }
 /* Date Section */
 .date-container {

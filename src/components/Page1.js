@@ -183,7 +183,7 @@ const Page1 = () => {
         >
           <FontAwesomeIcon icon={faFileAlt} /> Report Incident
         </button>
-        <button className="admin1-logout-button" onClick={handleLogout}>
+        <button className="page1-logout-button" onClick={handleLogout}>
           <FontAwesomeIcon icon={faSignOutAlt} /> Logout
         </button>
       </div>
